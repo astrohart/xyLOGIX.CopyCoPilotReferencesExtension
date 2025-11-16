@@ -130,7 +130,7 @@ namespace CopyCoPilotReferencesExtension
         /// is kept on the UI thread (STA). Only pure path/formatting work is parallelized.
         /// </remarks>
         [DebuggerStepThrough]
-        private void Execute(object sender, EventArgs e)
+        private void Execute([NotLogged] object sender, [NotLogged] EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
