@@ -1,3 +1,6 @@
+using CCPRE.Generators.References.Actions;
+using CCPRE.Generators.References.Constants;
+using CCPRE.Generators.References.Factories;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -285,53 +288,73 @@ namespace CopyCoPilotReferencesExtension
         }
 
         /// <summary>
-        /// Handles the command execution: obtains selected items, extracts full paths,
-        /// converts to solution-relative #file:'…' refs, and copies to the clipboard.
+        /// Handles the command execution: obtains selected items, generates
+        /// Copilot reference(s) using the appropriate strategy, and copies them to
+        /// the clipboard.
         /// </summary>
         /// <remarks>
-        /// Validates all inputs and returns eagerly on invalid state. All DTE access
-        /// is kept on the UI thread (STA). Only pure path/formatting work is parallelized.
+        /// This method validates all input(s) and returns eagerly on invalid state.
+        /// <para />
+        /// All DTE access is kept on the UI thread (STA).
+        /// <para />
+        /// The method utilizes the
+        /// <see
+        ///     cref="M:CCPRE.Generators.References.Actions.Determine.TheReferenceGenerationStrategyToUse(System.Object)" />
+        /// method to determine the appropriate
+        /// <see
+        ///     cref="T:CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType" />
+        /// for each selected item.
+        /// <para />
+        /// The method then obtains the corresponding
+        /// <see
+        ///     cref="T:CCPRE.Generators.References.Interfaces.ICopilotReferenceGenerator" />
+        /// instance using the
+        /// <see
+        ///     cref="M:CCPRE.Generators.References.Factories.GetCopilotReferenceGenerator.OfType(CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType)" />
+        /// factory method.
+        /// <para />
+        /// If any generator cannot be obtained or reference generation fails, the
+        /// item is skipped and the method continues processing remaining item(s).
         /// </remarks>
         private void Execute([NotLogged] object sender, [NotLogged] EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var operationCompleted =
-                false; // defensive style for void; indicates success path
+            var operationCompleted = false;
             IVsThreadedWaitDialog2 waitDialog = null;
 
             try
             {
                 var dte2 = Package.GetGlobalService(typeof(SDTE)) as DTE2;
-                if (dte2 == null) return;
+                if (dte2 == null)
+                    return;
 
-                // Optional: lightweight, non-blocking progress UI with marquee
                 waitDialog = StartWaitDialog(
                     "Microsoft Visual Studio",
                     "Collecting selection and formatting paths…", "Working…"
                 );
 
                 var projectItems = GetSelectedProjectItems(dte2);
-                if (projectItems == null) return;
-                if (projectItems.Count == 0) return;
+                if (projectItems == null)
+                    return;
+                if (projectItems.Count == 0)
+                    return;
 
-                // Step 1 (UI thread): collect absolute file paths from ProjectItem(s)
-                var absolutePaths = CollectAbsolutePaths(projectItems);
-                if (absolutePaths == null) return;
-                if (absolutePaths.Count == 0) return;
-
-                // Step 2 (UI thread): capture solution directory once
                 var solutionDir = GetSolutionDirectory(dte2);
-                if (string.IsNullOrWhiteSpace(solutionDir)) return;
+                if (string.IsNullOrWhiteSpace(solutionDir))
+                    return;
 
-                // Step 3 (BG CPU-only): normalize, relativize, and format in parallel
-                var formatted = TransformToCopilotReferences(
-                    absolutePaths, solutionDir
+                var formatted = GenerateCopilotReferences(
+                    projectItems, solutionDir
                 );
+                if (formatted == null)
+                    return;
+                if (formatted.Count == 0)
+                    return;
 
-                // Step 4 (UI thread): join and copy to clipboard
                 var text = JoinReferences(formatted);
-                if (string.IsNullOrWhiteSpace(text)) return;
+                if (string.IsNullOrWhiteSpace(text))
+                    return;
 
                 TryCopyToClipboard(text);
 
@@ -345,7 +368,7 @@ namespace CopyCoPilotReferencesExtension
             finally
             {
                 EndWaitDialog(waitDialog);
-                _ = operationCompleted; // keep local for diagnostics if needed
+                _ = operationCompleted;
             }
         }
 
@@ -369,6 +392,111 @@ namespace CopyCoPilotReferencesExtension
                 // dump all the exception info to the log
                 DebugUtils.LogException(ex);
                 result = default;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Generates GitHub Copilot reference(s) for the specified
+        /// <see cref="T:EnvDTE.ProjectItem" /> collection using the appropriate
+        /// strategy for each item.
+        /// </summary>
+        /// <param name="projectItems">
+        /// (Required.) Reference to a read-only list of
+        /// <see cref="T:EnvDTE.ProjectItem" /> object(s) for which to generate
+        /// reference(s).
+        /// </param>
+        /// <param name="solutionDirectory">
+        /// (Required.) A <see cref="T:System.String" /> that contains the absolute
+        /// path to the solution directory.
+        /// </param>
+        /// <returns>
+        /// Reference to a read-only list of <see cref="T:System.String" /> value(s)
+        /// containing the formatted GitHub Copilot reference(s), or an empty list if
+        /// no reference(s) could be generated.
+        /// </returns>
+        /// <remarks>
+        /// This method iterates through each <see cref="T:EnvDTE.ProjectItem" /> in
+        /// <paramref name="projectItems" /> and determines the appropriate
+        /// <see
+        ///     cref="T:CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType" />
+        /// using the
+        /// <see
+        ///     cref="M:CCPRE.Generators.References.Actions.Determine.TheReferenceGenerationStrategyToUse(System.Object)" />
+        /// method.
+        /// <para />
+        /// For each valid generator type, it obtains the corresponding
+        /// <see
+        ///     cref="T:CCPRE.Generators.References.Interfaces.ICopilotReferenceGenerator" />
+        /// instance using the
+        /// <see
+        ///     cref="M:CCPRE.Generators.References.Factories.GetCopilotReferenceGenerator.OfType(CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType)" />
+        /// factory method.
+        /// <para />
+        /// This method returns an empty list if <paramref name="projectItems" /> is
+        /// <see langword="null" />.
+        /// <para />
+        /// This method returns an empty list if
+        /// <paramref name="solutionDirectory" /> is blank or whitespace.
+        /// <para />
+        /// Item(s) for which no valid generator can be obtained are skipped and not
+        /// included in the result.
+        /// </remarks>
+        [return: NotLogged]
+        private static IReadOnlyList<string> GenerateCopilotReferences(
+            [NotLogged] IReadOnlyList<ProjectItem> projectItems,
+            [NotLogged] string solutionDirectory
+        )
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var result = new List<string>();
+
+            try
+            {
+                if (projectItems == null)
+                    return result;
+                if (string.IsNullOrWhiteSpace(solutionDirectory))
+                    return result;
+
+                var seen =
+                    new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var item in projectItems)
+                {
+                    if (item == null)
+                        continue;
+
+                    var generatorType =
+                        Determine.TheReferenceGenerationStrategyToUse(item);
+
+                    if (generatorType == CopilotReferenceGeneratorType.Unknown)
+                        continue;
+
+                    var generator =
+                        GetCopilotReferenceGenerator.OfType(generatorType);
+
+                    if (generator == null)
+                        continue;
+
+                    var reference = generator.Generate(item, solutionDirectory);
+
+                    if (string.IsNullOrWhiteSpace(reference))
+                        continue;
+
+                    if (!seen.Add(reference))
+                        continue;
+
+                    result.Add(reference);
+                }
+            }
+            catch (Exception ex)
+            {
+                // dump all the exception info to the log
+                DebugUtils.LogException(ex);
+
+                result = new List<string>();
             }
 
             return result;
