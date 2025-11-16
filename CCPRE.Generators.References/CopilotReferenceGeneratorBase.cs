@@ -170,6 +170,11 @@ namespace CCPRE.Generators.References
                     $"CopilotReferenceGeneratorBase.Generate: *** SUCCESS *** The folder with path, '{solutionDirectory}', was found on the file system.  Proceeding..."
                 );
 
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"*** FYI *** Calling the OnGenerate() method to invoke the custom processing for the '{GeneratorType}' generator type..."
+                );
+
                 result = OnGenerate(selectedObject, solutionDirectory);
             }
             catch (Exception ex)
@@ -179,6 +184,11 @@ namespace CCPRE.Generators.References
 
                 result = string.Empty;
             }
+
+            DebugUtils.WriteLine(
+                DebugLevel.Debug,
+                $"CopilotReferenceGeneratorBase.Generate: Result = '{result}'"
+            );
 
             return result;
         }
