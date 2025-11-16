@@ -1029,7 +1029,10 @@ namespace CopyCoPilotReferencesExtension
                     "CopyCoPilotReferencesCommand.StartWaitDialog: *** SUCCESS *** The variable, 'result', has a valid object reference for its value.  Proceeding..."
                 );
 
-                if (result == null) return result;
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"*** FYI *** Requesting that Visual Studio display the threaded wait dialog with caption, '{caption}'; message, '{message}'; and status, '{status}'..."
+                );
 
                 // Cancel disabled; marquee enabled
                 result.StartWaitDialog(
