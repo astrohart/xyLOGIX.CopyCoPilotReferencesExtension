@@ -112,6 +112,10 @@
       <Project>{4BACCE79-0960-4445-975E-DB92F5A555A4}</Project>
       <Name>xyLOGIX.Core.Files</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\xyLOGIX.Core.TemplateWizard.Logging.VS2022\xyLOGIX.Core.TemplateWizard.Logging\xyLOGIX.Core.TemplateWizard.Logging.csproj">
+      <Project>{871E5788-7574-40BC-8646-C423599396A2}</Project>
+      <Name>xyLOGIX.Core.TemplateWizard.Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CCPRE.Generators.References.Actions\CCPRE.Generators.References.Actions.csproj">
       <Project>{b50f4922-b773-43b7-9134-a6dd32f3b521}</Project>
       <Name>CCPRE.Generators.References.Actions</Name>
