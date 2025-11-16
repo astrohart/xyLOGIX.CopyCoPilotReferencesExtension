@@ -143,6 +143,14 @@
       <Project>{5528d7fb-b88b-4e9d-9bbd-b6b6b893666a}</Project>
       <Name>xyLOGIX.Core.Extensions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References.Constants\CCPRE.Generators.References.Constants.csproj">
+      <Project>{28AD5714-BFC0-4F3E-BD83-4714F6D68893}</Project>
+      <Name>CCPRE.Generators.References.Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References.Interfaces\CCPRE.Generators.References.Interfaces.csproj">
+      <Project>{694F157E-A60D-490E-B48B-263DCD99A8DD}</Project>
+      <Name>CCPRE.Generators.References.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="1382_cogs.ico" />
