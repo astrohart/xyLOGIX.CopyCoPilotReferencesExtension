@@ -5,6 +5,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using PostSharp.Patterns.Collections;
 using PostSharp.Patterns.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -409,13 +410,14 @@ namespace CopyCoPilotReferencesExtension
         /// UI hierarchy tree.
         /// </remarks>
         [return: NotLogged]
-        private static IReadOnlyList<ProjectItem> GetSelectedProjectItems(
+        private static IReadOnlyList<UIHierarchyItem> GetSelectedProjectItems(
             [NotLogged] DTE2 dte2
         )
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var result = new List<ProjectItem>();
+            var result = new AdvisableCollection<UIHierarchyItem>();
+
             try
             {
                 if (dte2 == null) return result;
@@ -450,7 +452,8 @@ namespace CopyCoPilotReferencesExtension
             {
                 // dump all the exception info to the log
                 DebugUtils.LogException(ex);
-                result = new List<ProjectItem>(); // default
+
+                result = new AdvisableCollection<UIHierarchyItem>();
             }
 
             return result;
