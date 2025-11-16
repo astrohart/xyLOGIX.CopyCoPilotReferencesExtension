@@ -11,27 +11,29 @@
   - [_package](#F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-_package 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand._package')
   - [Instance](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Instance 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Instance')
   - [#cctor()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-#cctor 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.#cctor')
-  - [AppendDirectorySeparator()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-AppendDirectorySeparator-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.AppendDirectorySeparator(System.String)')
-  - [CollectAbsolutePaths(projectItems)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-CollectAbsolutePaths-System-Collections-Generic-IReadOnlyList{EnvDTE-ProjectItem}- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.CollectAbsolutePaths(System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem})')
-  - [EndWaitDialog()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-EndWaitDialog-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.EndWaitDialog(Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2)')
+  - [EndWaitDialog(dialog)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-EndWaitDialog-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.EndWaitDialog(Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2)')
   - [Execute()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Execute-System-Object,System-EventArgs- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Execute(System.Object,System.EventArgs)')
-  - [FormatCopilotReference()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-FormatCopilotReference-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.FormatCopilotReference(System.String)')
+  - [GenerateCopilotReferences(projectItems,solutionDirectory)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GenerateCopilotReferences-System-Collections-Generic-IReadOnlyList{EnvDTE-ProjectItem},System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.GenerateCopilotReferences(System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem},System.String)')
   - [GetSelectedProjectItems(dte2)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetSelectedProjectItems-EnvDTE80-DTE2- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.GetSelectedProjectItems(EnvDTE80.DTE2)')
   - [GetSolutionDirectory(dte2)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetSolutionDirectory-EnvDTE80-DTE2- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.GetSolutionDirectory(EnvDTE80.DTE2)')
   - [InitializeAsync(package)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-InitializeAsync-Microsoft-VisualStudio-Shell-AsyncPackage- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.InitializeAsync(Microsoft.VisualStudio.Shell.AsyncPackage)')
   - [JoinReferences(tokens)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-JoinReferences-System-Collections-Generic-IReadOnlyList{System-String}- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.JoinReferences(System.Collections.Generic.IReadOnlyList{System.String})')
   - [NormalizeSeparators()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-NormalizeSeparators-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.NormalizeSeparators(System.String)')
   - [OnBeforeQueryStatus(sender,e)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-OnBeforeQueryStatus-System-Object,System-EventArgs- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.OnBeforeQueryStatus(System.Object,System.EventArgs)')
-  - [ProcessProjectItem(projectItem)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ProcessProjectItem-EnvDTE-ProjectItem- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.ProcessProjectItem(EnvDTE.ProjectItem)')
-  - [StartWaitDialog()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-StartWaitDialog-System-String,System-String,System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.StartWaitDialog(System.String,System.String,System.String)')
-  - [ToSolutionRelative(absolutePath,solutionDir)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ToSolutionRelative-System-String,System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.ToSolutionRelative(System.String,System.String)')
-  - [TransformToCopilotReferences(absolutePaths,solutionDir)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TransformToCopilotReferences-System-Collections-Generic-IReadOnlyList{System-String},System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.TransformToCopilotReferences(System.Collections.Generic.IReadOnlyList{System.String},System.String)')
-  - [TryCopyToClipboard()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TryCopyToClipboard-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.TryCopyToClipboard(System.String)')
+  - [StartWaitDialog(caption,message,status)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-StartWaitDialog-System-String,System-String,System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.StartWaitDialog(System.String,System.String,System.String)')
+  - [TryCopyToClipboard(text)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TryCopyToClipboard-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.TryCopyToClipboard(System.String)')
 - [CopyCoPilotReferencesPackage](#T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage')
   - [#ctor()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-#ctor 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage.#ctor')
   - [PackageGuidString](#F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-PackageGuidString 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage.PackageGuidString')
   - [#cctor()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-#cctor 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage.#cctor')
   - [InitializeAsync(cancellationToken,progress)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-InitializeAsync-System-Threading-CancellationToken,System-IProgress{Microsoft-VisualStudio-Shell-ServiceProgressData}- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage.InitializeAsync(System.Threading.CancellationToken,System.IProgress{Microsoft.VisualStudio.Shell.ServiceProgressData})')
+- [Get](#T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Get')
+  - [LOG_FILE_PATH_TERMINATOR](#F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-LOG_FILE_PATH_TERMINATOR 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Get.LOG_FILE_PATH_TERMINATOR')
+  - [AssemblyCompany](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-AssemblyCompany 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Get.AssemblyCompany')
+  - [AssemblyProduct](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-AssemblyProduct 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Get.AssemblyProduct')
+  - [AssemblyTitle](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-AssemblyTitle 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Get.AssemblyTitle')
+  - [ApplicationProductName()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-ApplicationProductName 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Get.ApplicationProductName')
+  - [LogFilePath()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-LogFilePath 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Get.LogFilePath')
 
 <a name='T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand'></a>
 ## CopyCoPilotReferencesCommand `type`
@@ -209,60 +211,43 @@ being created or before any `static` members are referenced.
 We've decorated this constructor with the `[Log(AttributeExclude = true)]`
 attribute in order to simplify the logging output.
 
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-AppendDirectorySeparator-System-String-'></a>
-### AppendDirectorySeparator() `method`
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-EndWaitDialog-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2-'></a>
+### EndWaitDialog(dialog) `method`
 
 ##### Summary
 
-Ensures trailing directory separator (for
-[MakeRelativeUri](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Uri.MakeRelativeUri 'System.Uri.MakeRelativeUri(System.Uri)') correctness).
-
-##### Parameters
-
-This method has no parameters.
-
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-CollectAbsolutePaths-System-Collections-Generic-IReadOnlyList{EnvDTE-ProjectItem}-'></a>
-### CollectAbsolutePaths(projectItems) `method`
-
-##### Summary
-
-Converts [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') entries into absolute file system
-paths.
-
-##### Returns
-
-A list of absolute file paths.
+Ends the specified wait `dialog`, if it is active.
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| projectItems | [System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IReadOnlyList 'System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem}') | Reference to a read-only list of
-[ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem'). |
+| dialog | [Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2](#T-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2 'Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2') | (Required.) Reference to an instance of an object that implements the
+[IVsThreadedWaitDialog2](#T-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2 'Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2')
+interface.
+
+
+
+This parameter can also be set to a `null` reference; in which
+case, the method does nothing. |
 
 ##### Remarks
 
-Uses only FileNames[1] for each item; skips non-physical items, folders, or
-items without files.
+This method must be called on the UI thread.
 
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-EndWaitDialog-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2-'></a>
-### EndWaitDialog() `method`
 
-##### Summary
 
-Ends the wait dialog if it was shown.
-
-##### Parameters
-
-This method has no parameters.
+If an exception occurs while ending the dialog, the exception is logged, and
+the method continues execution without propagating the exception.
 
 <a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Execute-System-Object,System-EventArgs-'></a>
 ### Execute() `method`
 
 ##### Summary
 
-Handles the command execution: obtains selected items, extracts full paths,
-converts to solution-relative #file:'…' refs, and copies to the clipboard.
+Handles the command execution: obtains selected items, generates
+Copilot reference(s) using the appropriate strategy, and copies them to
+the clipboard.
 
 ##### Parameters
 
@@ -270,19 +255,89 @@ This method has no parameters.
 
 ##### Remarks
 
-Validates all inputs and returns eagerly on invalid state. All DTE access
-is kept on the UI thread (STA). Only pure path/formatting work is parallelized.
+This method validates all input(s) and returns eagerly on invalid state.
 
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-FormatCopilotReference-System-String-'></a>
-### FormatCopilotReference() `method`
+
+
+All DTE access is kept on the UI thread (STA).
+
+
+
+The method utilizes the
+[TheReferenceGenerationStrategyToUse](#M-CCPRE-Generators-References-Actions-Determine-TheReferenceGenerationStrategyToUse-System-Object- 'CCPRE.Generators.References.Actions.Determine.TheReferenceGenerationStrategyToUse(System.Object)')
+method to determine the appropriate
+[CopilotReferenceGeneratorType](#T-CCPRE-Generators-References-Constants-CopilotReferenceGeneratorType 'CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType')
+for each selected item.
+
+
+
+The method then obtains the corresponding
+[ICopilotReferenceGenerator](#T-CCPRE-Generators-References-Interfaces-ICopilotReferenceGenerator 'CCPRE.Generators.References.Interfaces.ICopilotReferenceGenerator')
+instance using the
+[OfType](#M-CCPRE-Generators-References-Factories-GetCopilotReferenceGenerator-OfType-CCPRE-Generators-References-Constants-CopilotReferenceGeneratorType- 'CCPRE.Generators.References.Factories.GetCopilotReferenceGenerator.OfType(CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType)')
+factory method.
+
+
+
+If any generator cannot be obtained or reference generation fails, the
+item is skipped and the method continues processing remaining item(s).
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GenerateCopilotReferences-System-Collections-Generic-IReadOnlyList{EnvDTE-ProjectItem},System-String-'></a>
+### GenerateCopilotReferences(projectItems,solutionDirectory) `method`
 
 ##### Summary
 
-Formats a path as a Copilot Chat file reference token.
+Generates GitHub Copilot reference(s) for the specified
+[ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') collection using the appropriate
+strategy for each item.
+
+##### Returns
+
+Reference to a read-only list of [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') value(s)
+containing the formatted GitHub Copilot reference(s), or an empty list if
+no reference(s) could be generated.
 
 ##### Parameters
 
-This method has no parameters.
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| projectItems | [System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IReadOnlyList 'System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem}') | (Required.) Reference to a read-only list of
+[ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') object(s) for which to generate
+reference(s). |
+| solutionDirectory | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | (Required.) A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the absolute
+path to the solution directory. |
+
+##### Remarks
+
+This method iterates through each [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') in
+`projectItems` and determines the appropriate
+[CopilotReferenceGeneratorType](#T-CCPRE-Generators-References-Constants-CopilotReferenceGeneratorType 'CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType')
+using the
+[TheReferenceGenerationStrategyToUse](#M-CCPRE-Generators-References-Actions-Determine-TheReferenceGenerationStrategyToUse-System-Object- 'CCPRE.Generators.References.Actions.Determine.TheReferenceGenerationStrategyToUse(System.Object)')
+method.
+
+
+
+For each valid generator type, it obtains the corresponding
+[ICopilotReferenceGenerator](#T-CCPRE-Generators-References-Interfaces-ICopilotReferenceGenerator 'CCPRE.Generators.References.Interfaces.ICopilotReferenceGenerator')
+instance using the
+[OfType](#M-CCPRE-Generators-References-Factories-GetCopilotReferenceGenerator-OfType-CCPRE-Generators-References-Constants-CopilotReferenceGeneratorType- 'CCPRE.Generators.References.Factories.GetCopilotReferenceGenerator.OfType(CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType)')
+factory method.
+
+
+
+This method returns an empty list if `projectItems` is
+`null`.
+
+
+
+This method returns an empty list if
+`solutionDirectory` is blank or whitespace.
+
+
+
+Item(s) for which no valid generator can be obtained are skipped and not
+included in the result.
 
 <a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetSelectedProjectItems-EnvDTE80-DTE2-'></a>
 ### GetSelectedProjectItems(dte2) `method`
@@ -427,87 +482,64 @@ If `sender` is not an instance of
 , no action is
 taken.
 
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ProcessProjectItem-EnvDTE-ProjectItem-'></a>
-### ProcessProjectItem(projectItem) `method`
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-StartWaitDialog-System-String,System-String,System-String-'></a>
+### StartWaitDialog(caption,message,status) `method`
 
 ##### Summary
 
-Extracts the absolute path for a single [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') if
-it is a physical file.
+Creates and starts a `Threaded Wait Dialog` with the specified
+`caption`, `message`, and
+`status` text.
 
 ##### Returns
 
-The absolute file path, or `null` on failure.
+Reference to an instance of an object that implements the
+[IVsThreadedWaitDialog2](#T-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2 'Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2')
+interface representing the active `Wait Dialog`, or
+`null` if the dialog could not be created.
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| projectItem | [EnvDTE.ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') | Reference to a [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem'). |
+| caption | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | (Required.) A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing
+the caption text to display in the titlebar of the `Wait Dialog`. |
+| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | (Required.) A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing
+the main message text to display in the `Wait Dialog`. |
+| status | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | (Required.) A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing
+the status text to display in the `Wait Dialog`, providing additional
+context or progress information. |
 
 ##### Remarks
 
-Skips non-physical items and items with no files. Bounds-checks FileCount and
-FileNames[1].
+This method initializes and displays a `Threaded Wait Dialog`
+using Visual Studio's `Wait Dialog Service` component..
 
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-StartWaitDialog-System-String,System-String,System-String-'></a>
-### StartWaitDialog() `method`
 
-##### Summary
 
-Shows the VS Threaded Wait Dialog with a marquee progress bar.
-
-##### Parameters
-
-This method has no parameters.
-
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ToSolutionRelative-System-String,System-String-'></a>
-### ToSolutionRelative(absolutePath,solutionDir) `method`
-
-##### Summary
-
-Converts an absolute path to a solution-relative path.
-
-##### Returns
-
-A relative path using forward slashes, or `null`.
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| absolutePath | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Reference to an absolute file path. |
-| solutionDir | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Reference to the absolute solution directory. |
-
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TransformToCopilotReferences-System-Collections-Generic-IReadOnlyList{System-String},System-String-'></a>
-### TransformToCopilotReferences(absolutePaths,solutionDir) `method`
-
-##### Summary
-
-Transforms absolute paths into solution-relative Copilot Chat references in
-parallel.
-
-##### Returns
-
-A read-only list of formatted `#file:'…'` tokens.
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| absolutePaths | [System.Collections.Generic.IReadOnlyList{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IReadOnlyList 'System.Collections.Generic.IReadOnlyList{System.String}') | Reference to a list of absolute paths. |
-| solutionDir | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Reference to the absolute solution directory. |
+If the service is unavailable or an error occurs during initialization, the
+method returns `null`.
 
 <a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TryCopyToClipboard-System-String-'></a>
-### TryCopyToClipboard() `method`
+### TryCopyToClipboard(text) `method`
 
 ##### Summary
 
-Copies text to the clipboard on the UI thread.
+Makes an attempt to copy the specified `text` to the
+Clipboard.
 
 ##### Parameters
 
-This method has no parameters.
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| text | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | (Required.) A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing the text that is to be
+copied to the Clipboard. |
+
+##### Remarks
+
+If the specified `text` is `null`,
+blank, or the [Empty](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String.Empty 'System.String.Empty') value, then the method does
+nothing.
 
 <a name='T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage'></a>
 ## CopyCoPilotReferencesPackage `type`
@@ -609,3 +641,98 @@ type parameter.
 
 
 This object is used to report progress during initialization. |
+
+<a name='T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get'></a>
+## Get `type`
+
+##### Namespace
+
+CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand
+
+##### Summary
+
+Exposes static methods to obtain data from various data sources.
+
+<a name='F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-LOG_FILE_PATH_TERMINATOR'></a>
+### LOG_FILE_PATH_TERMINATOR `constants`
+
+##### Summary
+
+A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing the final piece of the path of the
+log file.
+
+<a name='P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-AssemblyCompany'></a>
+### AssemblyCompany `property`
+
+##### Summary
+
+Gets a [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the product name defined
+for this application.
+
+##### Remarks
+
+This property is really an alias for the
+[AssemblyCompany](#P-xyLOGIX-Core-Assemblies-Info-AssemblyMetadata-AssemblyCompany 'xyLOGIX.Core.Assemblies.Info.AssemblyMetadata.AssemblyCompany')
+property.
+
+<a name='P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-AssemblyProduct'></a>
+### AssemblyProduct `property`
+
+##### Summary
+
+Gets a [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the product name defined
+for this application.
+
+##### Remarks
+
+This property is really an alias for the
+[ShortProductName](#P-xyLOGIX-Core-Assemblies-Info-AssemblyMetadata-ShortProductName 'xyLOGIX.Core.Assemblies.Info.AssemblyMetadata.ShortProductName')
+property.
+
+<a name='P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-AssemblyTitle'></a>
+### AssemblyTitle `property`
+
+##### Summary
+
+Gets a [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the assembly title defined
+for this application.
+
+##### Remarks
+
+This property is really an alias for the
+[AssemblyTitle](#P-xyLOGIX-Core-Assemblies-Info-AssemblyMetadata-AssemblyTitle 'xyLOGIX.Core.Assemblies.Info.AssemblyMetadata.AssemblyTitle')
+property --- except that all whitespace is replace with underscores.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-ApplicationProductName'></a>
+### ApplicationProductName() `method`
+
+##### Summary
+
+Gets a [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains a user-friendly name for
+the software product of which this application or class library is a part.
+
+##### Returns
+
+A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains a user-friendly name for the
+software product of which this application or class library is a part.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Get-LogFilePath'></a>
+### LogFilePath() `method`
+
+##### Summary
+
+Obtains a [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the fully-qualified
+pathname of the file that should be used for logging messages.
+
+##### Returns
+
+A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the fully-qualified pathname of
+the file that should be used for logging messages.
+
+##### Parameters
+
+This method has no parameters.
