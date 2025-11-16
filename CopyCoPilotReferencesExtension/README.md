@@ -10,12 +10,22 @@
   - [_commandService](#F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-_commandService 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand._commandService')
   - [_package](#F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-_package 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand._package')
   - [Instance](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Instance 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Instance')
-  - [ServiceProvider](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ServiceProvider 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.ServiceProvider')
-  - [Execute(sender,e)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Execute-System-Object,System-EventArgs- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Execute(System.Object,System.EventArgs)')
-  - [GetCopilotReference(projectItem,solutionDir)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetCopilotReference-EnvDTE-ProjectItem,System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.GetCopilotReference(EnvDTE.ProjectItem,System.String)')
-  - [GetRelativePath(basePath,targetPath)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetRelativePath-System-String,System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.GetRelativePath(System.String,System.String)')
+  - [AppendDirectorySeparator()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-AppendDirectorySeparator-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.AppendDirectorySeparator(System.String)')
+  - [CollectAbsolutePaths(projectItems)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-CollectAbsolutePaths-System-Collections-Generic-IReadOnlyList{EnvDTE-ProjectItem}- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.CollectAbsolutePaths(System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem})')
+  - [EndWaitDialog()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-EndWaitDialog-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.EndWaitDialog(Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2)')
+  - [Execute()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Execute-System-Object,System-EventArgs- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Execute(System.Object,System.EventArgs)')
+  - [FormatCopilotReference()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-FormatCopilotReference-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.FormatCopilotReference(System.String)')
+  - [GetSelectedProjectItems(dte2)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetSelectedProjectItems-EnvDTE80-DTE2- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.GetSelectedProjectItems(EnvDTE80.DTE2)')
+  - [GetSolutionDirectory(dte2)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetSolutionDirectory-EnvDTE80-DTE2- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.GetSolutionDirectory(EnvDTE80.DTE2)')
   - [InitializeAsync(package)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-InitializeAsync-Microsoft-VisualStudio-Shell-AsyncPackage- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.InitializeAsync(Microsoft.VisualStudio.Shell.AsyncPackage)')
+  - [JoinReferences(tokens)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-JoinReferences-System-Collections-Generic-IReadOnlyList{System-String}- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.JoinReferences(System.Collections.Generic.IReadOnlyList{System.String})')
+  - [NormalizeSeparators()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-NormalizeSeparators-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.NormalizeSeparators(System.String)')
   - [OnBeforeQueryStatus(sender,e)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-OnBeforeQueryStatus-System-Object,System-EventArgs- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.OnBeforeQueryStatus(System.Object,System.EventArgs)')
+  - [ProcessProjectItem(projectItem)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ProcessProjectItem-EnvDTE-ProjectItem- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.ProcessProjectItem(EnvDTE.ProjectItem)')
+  - [StartWaitDialog()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-StartWaitDialog-System-String,System-String,System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.StartWaitDialog(System.String,System.String,System.String)')
+  - [ToSolutionRelative(absolutePath,solutionDir)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ToSolutionRelative-System-String,System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.ToSolutionRelative(System.String,System.String)')
+  - [TransformToCopilotReferences(absolutePaths,solutionDir)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TransformToCopilotReferences-System-Collections-Generic-IReadOnlyList{System-String},System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.TransformToCopilotReferences(System.Collections.Generic.IReadOnlyList{System.String},System.String)')
+  - [TryCopyToClipboard()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TryCopyToClipboard-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.TryCopyToClipboard(System.String)')
 
 <a name='T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand'></a>
 ## CopyCoPilotReferencesCommand `type`
@@ -142,12 +152,6 @@ command.
 
 ##### Remarks
 
-The purpose of this field is to cache the value of the
-[Package](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Package 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Package')
-property.
-
-
-
 We must use the concrete
 [AsyncPackage](#T-Microsoft-VisualStudio-Shell-AsyncPackage 'Microsoft.VisualStudio.Shell.AsyncPackage')
 type here because
@@ -175,170 +179,122 @@ If accessed before initialization, this property will return
 `null`
 .
 
-<a name='P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ServiceProvider'></a>
-### ServiceProvider `property`
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-AppendDirectorySeparator-System-String-'></a>
+### AppendDirectorySeparator() `method`
 
 ##### Summary
 
-Gets a reference to an instance of
-[IServiceProvider](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IServiceProvider 'System.IServiceProvider')
-that provides access to Visual
-Studio service(s).
+Ensures trailing directory separator (for
+[MakeRelativeUri](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Uri.MakeRelativeUri 'System.Uri.MakeRelativeUri(System.Uri)') correctness).
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-CollectAbsolutePaths-System-Collections-Generic-IReadOnlyList{EnvDTE-ProjectItem}-'></a>
+### CollectAbsolutePaths(projectItems) `method`
+
+##### Summary
+
+Converts [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') entries into absolute file system
+paths.
+
+##### Returns
+
+A list of absolute file paths.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| projectItems | [System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IReadOnlyList 'System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem}') | Reference to a read-only list of
+[ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem'). |
 
 ##### Remarks
 
-This property returns the underlying
-[AsyncPackage](#T-Microsoft-VisualStudio-Shell-AsyncPackage 'Microsoft.VisualStudio.Shell.AsyncPackage')
-as an
-[IServiceProvider](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IServiceProvider 'System.IServiceProvider')
-to follow interface-based design
-principles.
+Uses only FileNames[1] for each item; skips non-physical items, folders, or
+items without files.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-EndWaitDialog-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2-'></a>
+### EndWaitDialog() `method`
+
+##### Summary
+
+Ends the wait dialog if it was shown.
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Execute-System-Object,System-EventArgs-'></a>
-### Execute(sender,e) `method`
+### Execute() `method`
 
 ##### Summary
 
-Executes the command logic to copy selected file reference(s) to the
-clipboard.
+Handles the command execution: obtains selected items, extracts full paths,
+converts to solution-relative #file:'…' refs, and copies to the clipboard.
 
 ##### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| sender | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | (Required.) Reference to an instance of [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object')
-that represents the source of the event. |
-| e | [System.EventArgs](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.EventArgs 'System.EventArgs') | (Required.) Reference to an instance of [EventArgs](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.EventArgs 'System.EventArgs') that
-contains the event data. |
+This method has no parameters.
 
 ##### Remarks
 
-This method retrieves selected file(s) from Solution Explorer, computes
-their path(s) relative to the solution directory, formats them as
-`#file:'relativePath'` reference(s), and copies the formatted
-reference(s) to the clipboard.
+Validates all inputs and returns eagerly on invalid state. All DTE access
+is kept on the UI thread (STA). Only pure path/formatting work is parallelized.
 
-
-
-The relative path(s) use forward slash(es) (`/`) as separator(s)
-for compatibility with GitHub Copilot's reference format.
-
-
-
-If no valid file(s) are selected, the method returns early without
-modifying the clipboard.
-
-
-
-If the DTE service is unavailable, the method returns early without
-modifying the clipboard.
-
-
-
-If the solution is not loaded, the method returns early without
-modifying the clipboard.
-
-
-
-This method must be called on the UI thread; otherwise, an exception
-will be thrown by
-[ThrowIfNotOnUIThread](#M-Microsoft-VisualStudio-Shell-ThreadHelper-ThrowIfNotOnUIThread-System-String- 'Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(System.String)')
-.
-
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetCopilotReference-EnvDTE-ProjectItem,System-String-'></a>
-### GetCopilotReference(projectItem,solutionDir) `method`
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-FormatCopilotReference-System-String-'></a>
+### FormatCopilotReference() `method`
 
 ##### Summary
 
-Gets a GitHub Copilot reference string for the specified
-`projectItem`
-.
+Formats a path as a Copilot Chat file reference token.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetSelectedProjectItems-EnvDTE80-DTE2-'></a>
+### GetSelectedProjectItems(dte2) `method`
+
+##### Summary
+
+Gets the currently selected [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') entries from
+Solution Explorer.
+Falls back to the active document’s [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem').
 
 ##### Returns
 
-A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing the GitHub Copilot
-reference in the format `#file:'relativePath'`, or
-[Empty](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String.Empty 'System.String.Empty')
-if the reference cannot be generated.
+A read-only list of selected [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem')
+objects.
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| projectItem | [EnvDTE.ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') | (Required.) Reference to an instance of
-[ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem')
-for which to generate the reference. |
-| solutionDir | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | (Required.) A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the solution
-directory path. |
+| dte2 | [EnvDTE80.DTE2](#T-EnvDTE80-DTE2 'EnvDTE80.DTE2') | Reference to an instance of [DTE2](#T-EnvDTE80-DTE2 'EnvDTE80.DTE2'). |
 
 ##### Remarks
 
-This method computes the relative path from the solution directory to
-the project item's file and formats it as a GitHub Copilot reference.
+Eagerly returns an empty list when selection is unavailable. Does not walk the
+UI hierarchy tree.
 
-
-
-If `projectItem` is `null`, the
-method returns [Empty](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String.Empty 'System.String.Empty').
-
-
-
-If `solutionDir` is blank or whitespace, the method
-returns [Empty](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String.Empty 'System.String.Empty').
-
-<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetRelativePath-System-String,System-String-'></a>
-### GetRelativePath(basePath,targetPath) `method`
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-GetSolutionDirectory-EnvDTE80-DTE2-'></a>
+### GetSolutionDirectory(dte2) `method`
 
 ##### Summary
 
-Computes a relative path from `basePath` to
-`targetPath`
-.
+Computes the solution directory from [DTE2](#T-EnvDTE80-DTE2 'EnvDTE80.DTE2').
 
 ##### Returns
 
-A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') containing the relative path from
-`basePath` to `targetPath`, or
-`targetPath` if a relative path cannot be computed.
+Absolute path to the solution directory, or `null`.
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| basePath | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | (Required.) A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the base
-directory path from which to compute the relative path. |
-| targetPath | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | (Required.) A [String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') that contains the target
-file or directory path for which to compute the relative path. |
-
-##### Remarks
-
-This method provides a lightweight implementation of
-`Path.GetRelativePath` for .NET Framework 4.8 compatibility, using
-[Uri](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Uri 'System.Uri')-based logic.
-
-
-
-If `basePath` is blank or whitespace, the method
-returns `targetPath` (or
-[Empty](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String.Empty 'System.String.Empty')
-if `targetPath` is
-also blank).
-
-
-
-If `targetPath` is blank or whitespace, the method
-returns [Empty](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String.Empty 'System.String.Empty').
-
-
-
-If the path(s) are on different volume(s) or scheme(s), the method
-returns `targetPath` unchanged.
-
-
-
-If URI construction fails, the method returns
-`targetPath`
-unchanged.
+| dte2 | [EnvDTE80.DTE2](#T-EnvDTE80-DTE2 'EnvDTE80.DTE2') | Reference to an instance of [DTE2](#T-EnvDTE80-DTE2 'EnvDTE80.DTE2'). |
 
 <a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-InitializeAsync-Microsoft-VisualStudio-Shell-AsyncPackage-'></a>
 ### InitializeAsync(package) `method`
@@ -382,6 +338,34 @@ and the
 [Instance](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Instance 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Instance')
 property will remain `null`.
 
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-JoinReferences-System-Collections-Generic-IReadOnlyList{System-String}-'></a>
+### JoinReferences(tokens) `method`
+
+##### Summary
+
+Joins tokens into a single space-separated string.
+
+##### Returns
+
+A single string suitable for the clipboard.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| tokens | [System.Collections.Generic.IReadOnlyList{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IReadOnlyList 'System.Collections.Generic.IReadOnlyList{System.String}') | Reference to a list of tokens. |
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-NormalizeSeparators-System-String-'></a>
+### NormalizeSeparators() `method`
+
+##### Summary
+
+Normalizes path separators to forward slashes for Copilot Chat.
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-OnBeforeQueryStatus-System-Object,System-EventArgs-'></a>
 ### OnBeforeQueryStatus(sender,e) `method`
 
@@ -412,3 +396,85 @@ If `sender` is not an instance of
 [OleMenuCommand](#T-Microsoft-VisualStudio-Shell-OleMenuCommand 'Microsoft.VisualStudio.Shell.OleMenuCommand')
 , no action is
 taken.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ProcessProjectItem-EnvDTE-ProjectItem-'></a>
+### ProcessProjectItem(projectItem) `method`
+
+##### Summary
+
+Extracts the absolute path for a single [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') if
+it is a physical file.
+
+##### Returns
+
+The absolute file path, or `null` on failure.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| projectItem | [EnvDTE.ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') | Reference to a [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem'). |
+
+##### Remarks
+
+Skips non-physical items and items with no files. Bounds-checks FileCount and
+FileNames[1].
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-StartWaitDialog-System-String,System-String,System-String-'></a>
+### StartWaitDialog() `method`
+
+##### Summary
+
+Shows the VS Threaded Wait Dialog with a marquee progress bar.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ToSolutionRelative-System-String,System-String-'></a>
+### ToSolutionRelative(absolutePath,solutionDir) `method`
+
+##### Summary
+
+Converts an absolute path to a solution-relative path.
+
+##### Returns
+
+A relative path using forward slashes, or `null`.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| absolutePath | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Reference to an absolute file path. |
+| solutionDir | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Reference to the absolute solution directory. |
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TransformToCopilotReferences-System-Collections-Generic-IReadOnlyList{System-String},System-String-'></a>
+### TransformToCopilotReferences(absolutePaths,solutionDir) `method`
+
+##### Summary
+
+Transforms absolute paths into solution-relative Copilot Chat references in
+parallel.
+
+##### Returns
+
+A read-only list of formatted `#file:'…'` tokens.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| absolutePaths | [System.Collections.Generic.IReadOnlyList{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IReadOnlyList 'System.Collections.Generic.IReadOnlyList{System.String}') | Reference to a list of absolute paths. |
+| solutionDir | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Reference to the absolute solution directory. |
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TryCopyToClipboard-System-String-'></a>
+### TryCopyToClipboard() `method`
+
+##### Summary
+
+Copies text to the clipboard on the UI thread.
+
+##### Parameters
+
+This method has no parameters.
