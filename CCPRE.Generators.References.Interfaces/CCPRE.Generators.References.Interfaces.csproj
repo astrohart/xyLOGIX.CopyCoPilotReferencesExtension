@@ -135,14 +135,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\xyLOGIX.Core.Debug.VS2019\xyLOGIX.Core.Debug\xyLOGIX.Core.Debug.csproj">
-      <Project>{c445c052-26b6-4884-9a7b-25dc7abc0ded}</Project>
-      <Name>xyLOGIX.Core.Debug</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\xyLOGIX.Core.Extensions.VS2019\xyLOGIX.Core.Extensions\xyLOGIX.Core.Extensions.csproj">
-      <Project>{5528d7fb-b88b-4e9d-9bbd-b6b6b893666a}</Project>
-      <Name>xyLOGIX.Core.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CCPRE.Generators.References.Constants\CCPRE.Generators.References.Constants.csproj">
       <Project>{28AD5714-BFC0-4F3E-BD83-4714F6D68893}</Project>
       <Name>CCPRE.Generators.References.Constants</Name>
