@@ -854,12 +854,17 @@ namespace CopyCoPilotReferencesExtension
                     $"CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** {applicationProductName.Length} B of data appear to be present in the variable, 'applicationProductName'.  Proceeding..."
                 );
 
-                LoggingSubsystemManager.InitializeLogging(
+                Debug.WriteLine($"*** FYI *** Attempting to initialize the logging subsystem...");
+
+               var loggingInitialized = LoggingSubsystemManager.InitializeLogging(
                     muteConsole: false,
                     infrastructureType: LoggingInfrastructureType.PostSharp,
                     logFileName: logFilePath,
                     applicationName: applicationProductName
                 );
+
+                // Dump the variable, loggingInitialized, to the Debug output
+                Debug.WriteLine($"CopyCoPilotReferencesCommand.InitializeAsync: loggingInitialized = {loggingInitialized}");
 
                 DebugUtils.WriteLine(
                     DebugLevel.Info,
