@@ -216,6 +216,7 @@ namespace CopyCoPilotReferencesExtension
             {
                 // dump all the exception info to the log
                 DebugUtils.LogException(ex);
+
                 result = new List<string>(); // default
             }
 
