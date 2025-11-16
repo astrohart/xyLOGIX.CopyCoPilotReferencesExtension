@@ -783,153 +783,59 @@ namespace CopyCoPilotReferencesExtension
             try
             {
                 Debug.WriteLine(
-                    "CopyCoPilotReferencesCommand.InitializeAsync: *** FYI *** Attempting to initialize the logging subsystem..."
+                    "CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the variable 'package' has a null reference for a value..."
                 );
 
-                ProgramFlowHelper.StartDebugger();
-
-                Debug.WriteLine(
-                    "*** FYI *** Attempting to formulate the fully-qualified pathname of the log file..."
-                );
-
-                var logFilePath = Get.LogFilePath();
-
-                // Dump the value of the variable, logFilePath, to the Debug output
-                Debug.WriteLine(
-                    $"CopyCoPilotReferencesCommand.InitializeAsync: logFilePath = '{logFilePath}'"
-                );
-
-                Debug.WriteLine(
-                    "CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the variable, 'logFilePath', has a null reference for a value, or is blank..."
-                );
-
-                // Check to see if the required variable, 'logFilePath', is null or blank. If it is, 
-                // then send an  error to the log file and then terminate the execution of this
-                // method.
-                if (string.IsNullOrWhiteSpace(logFilePath))
-                {
-                    // The variable, logFilePath, has a null reference for its value, or it is blank.  This is not desirable.
-                    Debug.WriteLine(
-                        "CopyCoPilotReferencesCommand.InitializeAsync: *** ERROR *** The variable, 'logFilePath', has a null reference for its value, or it is blank.  Stopping..."
-                    );
-
-                    // stop.
-                    return;
-                }
-
-                Debug.WriteLine(
-                    $"CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** {logFilePath.Length} B of data appear to be present in the variable, 'logFilePath'.  Proceeding..."
-                );
-
-                Debug.WriteLine(
-                    "*** FYI *** Attempting to get the application product name..."
-                );
-
-                var applicationProductName = Get.ApplicationProductName();
-
-                // Dump the value of the variable, applicationProductName, to the Debug output
-                Debug.WriteLine(
-                    $"CopyCoPilotReferencesCommand.InitializeAsync: applicationProductName = '{applicationProductName}'"
-                );
-
-                Debug.WriteLine(
-                    "CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the variable, 'applicationProductName', has a null reference for a value, or is blank..."
-                );
-
-                // Check to see if the required variable, 'applicationProductName', is null or blank. If it is, 
-                // then send an  error to the log file and then terminate the execution of this
-                // method.
-                if (string.IsNullOrWhiteSpace(applicationProductName))
-                {
-                    // The variable, applicationProductName, has a null reference for its value, or it is blank.  This is not desirable.
-                    Debug.WriteLine(
-                        "CopyCoPilotReferencesCommand.InitializeAsync: *** ERROR *** The variable, 'applicationProductName', has a null reference for its value, or it is blank.  Stopping..."
-                    );
-
-                    // stop.
-                    return;
-                }
-
-                Debug.WriteLine(
-                    $"CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** {applicationProductName.Length} B of data appear to be present in the variable, 'applicationProductName'.  Proceeding..."
-                );
-
-                Debug.WriteLine($"*** FYI *** Attempting to initialize the logging subsystem...");
-
-               var loggingInitialized = LoggingSubsystemManager.InitializeLogging(
-                    muteConsole: false,
-                    infrastructureType: LoggingInfrastructureType.PostSharp,
-                    logFileName: logFilePath,
-                    applicationName: applicationProductName
-                );
-
-                // Dump the variable, loggingInitialized, to the Debug output
-                Debug.WriteLine($"CopyCoPilotReferencesCommand.InitializeAsync: loggingInitialized = {loggingInitialized}");
-
-                DebugUtils.WriteLine(
-                    DebugLevel.Info,
-                    "CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the method parameter, 'package', has a null reference for a value..."
-                );
-
-                // Check to see if the required parameter, 'package', is null. If it is,
-                // then write an error message to the log file and then terminate the
-                // execution of this method, returning the default return value.
+                // Check to see if the variable, package, is null. If it is, send an error to the
+                // Debug output and quit, returning from the method.
                 if (package == null)
                 {
-                    // The method parameter, 'package', is required and is not supposed
-                    // to have a NULL value.  It does, and this is not desirable.
-                    DebugUtils.WriteLine(
-                        DebugLevel.Error,
-                        "CopyCoPilotReferencesCommand.InitializeAsync: *** ERROR *** A null reference was passed for the method parameter, 'package'.  Stopping..."
+                    // the variable package is required to have a valid object reference.
+                    Debug.WriteLine(
+                        "CopyCoPilotReferencesCommand.InitializeAsync: *** ERROR ***  The 'package' variable has a null reference.  Stopping..."
                     );
 
                     // stop.
                     return;
                 }
 
-                DebugUtils.WriteLine(
-                    DebugLevel.Info,
-                    "CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** We have been passed a valid object reference for the method parameter, 'package'.  Proceeding..."
+                // We can use the variable, package, because it's not set to a null reference.
+                Debug.WriteLine(
+                    "CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** The 'package' variable has a valid object reference for its value.  Proceeding..."
                 );
 
-                DebugUtils.WriteLine(
-                    DebugLevel.Info,
-                    "*** FYI *** Switching to the main UI thread..."
+                Debug.WriteLine(
+                    "CopyCoPilotReferencesCommand.InitializeAsync: *** FYI *** Switching to the main UI thread..."
                 );
 
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(
                     package.DisposalToken
                 );
 
-                DebugUtils.WriteLine(
-                    DebugLevel.Info,
-                    "*** CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the menu command service could be obtained..."
+                Debug.WriteLine(
+                    "*** CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the menu command service could be activated..."
                 );
 
-                // Check to see whether the menu command service could be obtained.
-                // If this is not the case, then write an FYI message to the log file
-                // explaining that there is nothing more that can be done, and then 
-                // terminate the execution of this method.
+                // Check to see whether the menu command service could be activated.
+                // If this is not the case, then write an error message to the log file
+                // and then terminate the execution of this method.
                 if (!(await package.GetServiceAsync(typeof(IMenuCommandService))
                         is IMenuCommandService commandService))
                 {
-                    // The menu command service was NOT obtained.  There is nothing to do.
-                    DebugUtils.WriteLine(
-                        DebugLevel.Info,
-                        "*** FYI *** The menu command service was NOT obtained.  Nothing to do..."
+                    // The menu command service was NOT activated.  This is not desirable.
+                    Debug.WriteLine(
+                        "*** ERROR: The menu command service was NOT activated.  Stopping..."
                     );
 
                     // stop.
                     return;
                 }
 
-                DebugUtils.WriteLine(
-                    DebugLevel.Info,
-                    "CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** The menu command service could be obtained.  Proceeding..."
+                Debug.WriteLine(
+                    "CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** The menu command service could be activated.  Proceeding..."
                 );
 
-                DebugUtils.WriteLine(
-                    DebugLevel.Info,
+                Debug.WriteLine(
                     "*** FYI *** Setting the value of the 'Instance' property..."
                 );
 
@@ -942,6 +848,97 @@ namespace CopyCoPilotReferencesExtension
                 // dump all the exception info to the log
                 DebugUtils.LogException(ex);
             }
+        }
+
+        private static bool InitializeLoggingSubsystem(
+            out bool loggingInitialized
+        )
+        {
+            Debug.WriteLine(
+                "CopyCoPilotReferencesCommand.InitializeAsync: *** FYI *** Attempting to initialize the logging subsystem..."
+            );
+
+            ProgramFlowHelper.StartDebugger();
+
+            Debug.WriteLine(
+                "*** FYI *** Attempting to formulate the fully-qualified pathname of the log file..."
+            );
+
+            var logFilePath = Get.LogFilePath();
+
+            // Dump the value of the variable, logFilePath, to the Debug output
+            Debug.WriteLine(
+                $"CopyCoPilotReferencesCommand.InitializeAsync: logFilePath = '{logFilePath}'"
+            );
+
+            Debug.WriteLine(
+                "CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the variable, 'logFilePath', has a null reference for a value, or is blank..."
+            );
+
+            // Check to see if the required variable, 'logFilePath', is null or blank. If it is, 
+            // then send an  error to the log file and then terminate the execution of this
+            // method.
+            if (string.IsNullOrWhiteSpace(logFilePath))
+            {
+                // The variable, logFilePath, has a null reference for its value, or it is blank.  This is not desirable.
+                Debug.WriteLine(
+                    "CopyCoPilotReferencesCommand.InitializeAsync: *** ERROR *** The variable, 'logFilePath', has a null reference for its value, or it is blank.  Stopping..."
+                );
+
+                // stop.
+                loggingInitialized = false;
+                return true;
+            }
+
+            Debug.WriteLine(
+                $"CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** {logFilePath.Length} B of data appear to be present in the variable, 'logFilePath'.  Proceeding..."
+            );
+
+            Debug.WriteLine(
+                "*** FYI *** Attempting to get the application product name..."
+            );
+
+            var applicationProductName = Get.ApplicationProductName();
+
+            // Dump the value of the variable, applicationProductName, to the Debug output
+            Debug.WriteLine(
+                $"CopyCoPilotReferencesCommand.InitializeAsync: applicationProductName = '{applicationProductName}'"
+            );
+
+            Debug.WriteLine(
+                "CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the variable, 'applicationProductName', has a null reference for a value, or is blank..."
+            );
+
+            // Check to see if the required variable, 'applicationProductName', is null or blank. If it is, 
+            // then send an  error to the log file and then terminate the execution of this
+            // method.
+            if (string.IsNullOrWhiteSpace(applicationProductName))
+            {
+                // The variable, applicationProductName, has a null reference for its value, or it is blank.  This is not desirable.
+                Debug.WriteLine(
+                    "CopyCoPilotReferencesCommand.InitializeAsync: *** ERROR *** The variable, 'applicationProductName', has a null reference for its value, or it is blank.  Stopping..."
+                );
+
+                // stop.
+                loggingInitialized = false;
+                return true;
+            }
+
+            Debug.WriteLine(
+                $"CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** {applicationProductName.Length} B of data appear to be present in the variable, 'applicationProductName'.  Proceeding..."
+            );
+
+            Debug.WriteLine(
+                "*** FYI *** Attempting to initialize the logging subsystem..."
+            );
+
+            loggingInitialized = LoggingSubsystemManager.InitializeLogging(
+                muteConsole: false,
+                infrastructureType: LoggingInfrastructureType.PostSharp,
+                logFileName: logFilePath,
+                applicationName: applicationProductName
+            );
+            return false;
         }
 
         /// <summary>
