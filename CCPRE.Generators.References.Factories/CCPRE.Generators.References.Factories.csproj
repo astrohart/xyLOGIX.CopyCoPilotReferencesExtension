@@ -120,6 +120,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetCopilotReferenceGenerator.cs" />
+    <Compile Include="GetFileCopilotReferenceGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -141,6 +143,26 @@
     <ProjectReference Include="..\..\xyLOGIX.Core.Extensions.VS2019\xyLOGIX.Core.Extensions\xyLOGIX.Core.Extensions.csproj">
       <Project>{5528d7fb-b88b-4e9d-9bbd-b6b6b893666a}</Project>
       <Name>xyLOGIX.Core.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References.Constants\CCPRE.Generators.References.Constants.csproj">
+      <Project>{28AD5714-BFC0-4F3E-BD83-4714F6D68893}</Project>
+      <Name>CCPRE.Generators.References.Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References.Interfaces\CCPRE.Generators.References.Interfaces.csproj">
+      <Project>{694F157E-A60D-490E-B48B-263DCD99A8DD}</Project>
+      <Name>CCPRE.Generators.References.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References.Validators.Factories\CCPRE.Generators.References.Validators.Factories.csproj">
+      <Project>{CB32084B-FDCD-4FBC-A564-F3C6E0497684}</Project>
+      <Name>CCPRE.Generators.References.Validators.Factories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References.Validators.Interfaces\CCPRE.Generators.References.Validators.Interfaces.csproj">
+      <Project>{2783C742-A336-449D-B914-4BCFE0742575}</Project>
+      <Name>CCPRE.Generators.References.Validators.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References\CCPRE.Generators.References.csproj">
+      <Project>{7B163A47-917C-4990-B365-5DAE9148EB93}</Project>
+      <Name>CCPRE.Generators.References</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
