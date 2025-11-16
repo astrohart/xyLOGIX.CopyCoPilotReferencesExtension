@@ -153,6 +153,10 @@
       <Project>{4BACCE79-0960-4445-975E-DB92F5A555A4}</Project>
       <Name>xyLOGIX.Core.Files</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References.Actions\CCPRE.Generators.References.Actions.csproj">
+      <Project>{B50F4922-B773-43B7-9134-A6DD32F3B521}</Project>
+      <Name>CCPRE.Generators.References.Actions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CCPRE.Generators.References.Constants\CCPRE.Generators.References.Constants.csproj">
       <Project>{28AD5714-BFC0-4F3E-BD83-4714F6D68893}</Project>
       <Name>CCPRE.Generators.References.Constants</Name>
