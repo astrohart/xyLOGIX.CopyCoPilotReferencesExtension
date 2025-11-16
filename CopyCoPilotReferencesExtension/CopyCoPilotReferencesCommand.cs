@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using PostSharp.Patterns.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +15,131 @@ using Constants = EnvDTE.Constants;
 
 namespace CopyCoPilotReferencesExtension
 {
+    /// <summary>
+    /// Defines the publicly-exposed events, methods and properties of a Visual
+    /// Studio extension command that copies selected file(s) from Solution
+    /// Explorer to the clipboard in GitHub Copilot reference format.
+    /// </summary>
+    /// <remarks>
+    /// This class implements a singleton pattern and registers itself as a menu
+    /// command within Visual Studio.
+    /// <para />
+    /// The command retrieves selected file(s) from Solution Explorer, converts
+    /// their path(s) to solution-relative path(s), and formats them as
+    /// <c>#file:'relativePath'</c> reference(s) for use with GitHub Copilot.
+    /// <para />
+    /// If invalid value(s) are encountered during execution (such as
+    /// <see
+    ///     langword="null" />
+    /// DTE service or empty solution), the command will fail
+    /// gracefully without copying anything to the clipboard.
+    /// </remarks>
     internal sealed class CopyCoPilotReferencesCommand
     {
+        /// <summary>
+        /// The command identifier value that uniquely identifies this command
+        /// within the Visual Studio command system.
+        /// </summary>
+        /// <remarks>
+        /// This value must match the command ID defined in the <c>.vsct</c> file.
+        /// </remarks>
+        public const int CommandId = 0x0100;
+
+        /// <summary>
+        /// The <see cref="T:System.Guid" /> value that identifies the command set
+        /// to which this command belongs.
+        /// </summary>
+        /// <remarks>
+        /// This value must match the command set GUID defined in the <c>.vsct</c> file.
+        /// </remarks>
+        public static readonly Guid CommandSet =
+            new Guid("e903358c-f298-4653-a50b-c7853569396f");
+
+        /// <summary>
+        /// Reference to an instance of an object that implements the
+        /// <see cref="T:System.ComponentModel.Design.IMenuCommandService" /> interface
+        /// </summary>
+        private readonly IMenuCommandService _commandService;
+
+        /// <summary>
+        /// Reference to an instance of
+        /// <see
+        ///     cref="T:Microsoft.VisualStudio.Shell.AsyncPackage" />
+        /// that owns this
+        /// command.
+        /// </summary>
+        /// <remarks>
+        /// We must use the concrete
+        /// <see
+        ///     cref="T:Microsoft.VisualStudio.Shell.AsyncPackage" />
+        /// type here because
+        /// the Visual Studio extension infrastructure requires it for proper
+        /// package initialization and service retrieval.
+        /// </remarks>
+        private readonly AsyncPackage _package;
+
+        /// <summary>
+        /// Constructs a new instance of
+        /// <see
+        ///     cref="T:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand" />
+        /// and returns a reference to it.
+        /// </summary>
+        /// <param name="package">
+        /// (Required.) Reference to an instance of
+        /// <see
+        ///     cref="T:Microsoft.VisualStudio.Shell.AsyncPackage" />
+        /// that owns this
+        /// command.
+        /// </param>
+        /// <param name="commandService">
+        /// (Required.) Reference to an instance of
+        /// <see
+        ///     cref="T:System.ComponentModel.Design.IMenuCommandService" />
+        /// that is
+        /// used to register this command.
+        /// </param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Thrown if either <paramref name="package" /> or
+        /// <paramref
+        ///     name="commandService" />
+        /// is <see langword="null" />.
+        /// </exception>
+        /// <remarks>
+        /// This constructor registers the command with Visual Studio's menu system
+        /// and attaches the
+        /// <see
+        ///     cref="M:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.OnBeforeQueryStatus(System.Object,System.EventArgs)" />
+        /// event handler to the command's
+        /// <see
+        ///     cref="E:Microsoft.VisualStudio.Shell.OleMenuCommand.BeforeQueryStatus" />
+        /// event.
+        /// <para />
+        /// If <paramref name="package" /> is <see langword="null" />, an
+        /// <see
+        ///     cref="T:System.ArgumentNullException" />
+        /// is thrown.
+        /// <para />
+        /// If <paramref name="commandService" /> is <see langword="null" />, an
+        /// <see cref="T:System.ArgumentNullException" /> is thrown.
+        /// </remarks>
+        private CopyCoPilotReferencesCommand(
+            [NotLogged] AsyncPackage package,
+            [NotLogged] IMenuCommandService commandService
+        )
+        {
+            _package = package ??
+                       throw new ArgumentNullException(nameof(package));
+            _commandService = commandService ??
+                              throw new ArgumentNullException(
+                                  nameof(commandService)
+                              );
+
+            var menuCommandID = new CommandID(CommandSet, CommandId);
+            var menuItem = new OleMenuCommand(Execute, menuCommandID);
+            menuItem.BeforeQueryStatus += OnBeforeQueryStatus;
+            commandService.AddCommand(menuItem);
+        }
+
         /// <summary>
         /// Ensures trailing directory separator (for
         /// <see cref="M:System.Uri.MakeRelativeUri(System.Uri)" /> correctness).
@@ -84,9 +207,8 @@ namespace CopyCoPilotReferencesExtension
                     var full = ProcessProjectItem(item);
                     if (string.IsNullOrWhiteSpace(full)) continue;
 
-                    if (seen.Contains(full)) continue;
+                    if (!seen.Add(full)) continue;
 
-                    seen.Add(full);
                     result.Add(full);
                 }
             }
@@ -129,7 +251,6 @@ namespace CopyCoPilotReferencesExtension
         /// Validates all inputs and returns eagerly on invalid state. All DTE access
         /// is kept on the UI thread (STA). Only pure path/formatting work is parallelized.
         /// </remarks>
-        [DebuggerStepThrough]
         private void Execute([NotLogged] object sender, [NotLogged] EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -145,7 +266,7 @@ namespace CopyCoPilotReferencesExtension
 
                 // Optional: lightweight, non-blocking progress UI with marquee
                 waitDialog = StartWaitDialog(
-                    "Copy CoPilot references",
+                    "Microsoft Visual Studio",
                     "Collecting selection and formatting paths…", "Working…"
                 );
 
@@ -381,6 +502,51 @@ namespace CopyCoPilotReferencesExtension
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Handles the
+        /// <see
+        ///     cref="E:Microsoft.VisualStudio.Shell.OleMenuCommand.BeforeQueryStatus" />
+        /// event to control the visibility and enabled state of the command.
+        /// </summary>
+        /// <param name="sender">
+        /// (Required.) Reference to an instance of <see cref="T:System.Object" />
+        /// that represents the source of the event, expected to be an instance of
+        /// <see cref="T:Microsoft.VisualStudio.Shell.OleMenuCommand" />.
+        /// </param>
+        /// <param name="e">
+        /// (Required.) Reference to an instance of <see cref="T:System.EventArgs" /> that
+        /// contains the event data.
+        /// </param>
+        /// <remarks>
+        /// This method ensures the command is visible and enabled whenever it is
+        /// queried.
+        /// <para />
+        /// If <paramref name="sender" /> is not an instance of
+        /// <see
+        ///     cref="T:Microsoft.VisualStudio.Shell.OleMenuCommand" />
+        /// , no action is
+        /// taken.
+        /// </remarks>
+        private void OnBeforeQueryStatus(
+            [NotLogged] object sender,
+            [NotLogged] EventArgs e
+        )
+        {
+            try
+            {
+                if (!(sender is OleMenuCommand myCommand))
+                    return;
+
+                myCommand.Visible = true;
+                myCommand.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                // dump all the exception info to the log
+                DebugUtils.LogException(ex);
+            }
         }
 
         /// <summary>
