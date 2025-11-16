@@ -6,6 +6,7 @@ using PostSharp.Patterns.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -133,11 +134,34 @@ namespace CopyCoPilotReferencesExtension
                               throw new ArgumentNullException(
                                   nameof(commandService)
                               );
-
+            
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(Execute, menuCommandID);
             menuItem.BeforeQueryStatus += OnBeforeQueryStatus;
             commandService.AddCommand(menuItem);
+        }
+
+        /// <summary>
+        /// Gets a reference to an instance of
+        /// <see
+        ///     cref="T:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand" />
+        /// that represents the singleton instance of this command.
+        /// </summary>
+        /// <remarks>
+        /// This property is initialized by the
+        /// <see
+        ///     cref="M:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.InitializeAsync(Microsoft.VisualStudio.Shell.AsyncPackage)" />
+        /// method.
+        /// <para />
+        /// If accessed before initialization, this property will return
+        /// <see
+        ///     langword="null" />
+        /// .
+        /// </remarks>
+        public static CopyCoPilotReferencesCommand Instance
+        {
+            [DebuggerStepThrough] get;
+            [DebuggerStepThrough] private set;
         }
 
         /// <summary>
@@ -429,6 +453,70 @@ namespace CopyCoPilotReferencesExtension
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Initializes the singleton instance of this command asynchronously.
+        /// </summary>
+        /// <param name="package">
+        /// (Required.) Reference to an instance of
+        /// <see
+        ///     cref="T:Microsoft.VisualStudio.Shell.AsyncPackage" />
+        /// that owns this
+        /// command.
+        /// </param>
+        /// <returns>
+        /// A <see cref="T:System.Threading.Tasks.Task" /> that represents the
+        /// asynchronous initialization operation.
+        /// </returns>
+        /// <remarks>
+        /// This method switches to the main UI thread, retrieves the menu command
+        /// service, and constructs the singleton instance of
+        /// <see
+        ///     cref="T:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand" />
+        /// .
+        /// <para />
+        /// If <paramref name="package" /> is <see langword="null" />, the method
+        /// will fail and the
+        /// <see
+        ///     cref="P:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Instance" />
+        /// property will remain <see langword="null" />.
+        /// <para />
+        /// If the menu command service cannot be retrieved, initialization may fail
+        /// and the
+        /// <see
+        ///     cref="P:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Instance" />
+        /// property will remain <see langword="null" />.
+        /// </remarks>
+        public static async Task InitializeAsync(
+            [NotLogged] AsyncPackage package
+        )
+        {
+            try
+            {
+                if (package == null)
+                    return;
+
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(
+                    package.DisposalToken
+                );
+
+                var commandService =
+                    await package.GetServiceAsync(typeof(IMenuCommandService))
+                        as IMenuCommandService;
+
+                if (commandService == null)
+                    return;
+
+                Instance = new CopyCoPilotReferencesCommand(
+                    package, commandService
+                );
+            }
+            catch (Exception ex)
+            {
+                // dump all the exception info to the log
+                DebugUtils.LogException(ex);
+            }
         }
 
         /// <summary>
