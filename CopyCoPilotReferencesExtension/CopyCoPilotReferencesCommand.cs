@@ -80,6 +80,22 @@ namespace CopyCoPilotReferencesExtension
         private readonly AsyncPackage _package;
 
         /// <summary>
+        /// Initializes <see langword="static" /> data or performs actions that
+        /// need to be performed once only for the
+        /// <see cref="T:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand" />
+        /// class.
+        /// </summary>
+        /// <remarks>
+        /// This constructor is called automatically prior to the first instance
+        /// being created or before any <see langword="static" /> members are referenced.
+        /// <para />
+        /// We've decorated this constructor with the <c>[Log(AttributeExclude = true)]</c>
+        /// attribute in order to simplify the logging output.
+        /// </remarks>
+        [Log(AttributeExclude = true)]
+        static CopyCoPilotReferencesCommand() { }
+
+        /// <summary>
         /// Constructs a new instance of
         /// <see
         ///     cref="T:CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand" />
@@ -134,7 +150,7 @@ namespace CopyCoPilotReferencesExtension
                               throw new ArgumentNullException(
                                   nameof(commandService)
                               );
-            
+
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(Execute, menuCommandID);
             menuItem.BeforeQueryStatus += OnBeforeQueryStatus;
