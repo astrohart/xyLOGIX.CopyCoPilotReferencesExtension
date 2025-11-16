@@ -220,6 +220,12 @@ namespace CCPRE.Generators.References
         /// not <see langword="null" /> and that <paramref name="solutionDirectory" />
         /// is not blank or whitespace.
         /// <para />
+        /// Furthermore, implementers can also take it for granted that the folder whose
+        /// fully-qualified pathname is stored in the argument of the
+        /// <paramref name="solutionDirectory" /> parameter refers to a folder that indeed
+        /// exists on the file system, and which contains the Visual Studio Solution (
+        /// <c>*.sln</c>) that is currently open in Visual Studio.
+        /// <para />
         /// Implementer(s) should return <see cref="F:System.String.Empty" /> if
         /// the reference cannot be generated for any reason.
         /// </remarks>
