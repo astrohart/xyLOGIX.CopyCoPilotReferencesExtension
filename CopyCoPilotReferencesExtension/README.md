@@ -10,6 +10,7 @@
   - [_commandService](#F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-_commandService 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand._commandService')
   - [_package](#F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-_package 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand._package')
   - [Instance](#P-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-Instance 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.Instance')
+  - [#cctor()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-#cctor 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.#cctor')
   - [AppendDirectorySeparator()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-AppendDirectorySeparator-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.AppendDirectorySeparator(System.String)')
   - [CollectAbsolutePaths(projectItems)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-CollectAbsolutePaths-System-Collections-Generic-IReadOnlyList{EnvDTE-ProjectItem}- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.CollectAbsolutePaths(System.Collections.Generic.IReadOnlyList{EnvDTE.ProjectItem})')
   - [EndWaitDialog()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-EndWaitDialog-Microsoft-VisualStudio-Shell-Interop-IVsThreadedWaitDialog2- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.EndWaitDialog(Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2)')
@@ -26,6 +27,11 @@
   - [ToSolutionRelative(absolutePath,solutionDir)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-ToSolutionRelative-System-String,System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.ToSolutionRelative(System.String,System.String)')
   - [TransformToCopilotReferences(absolutePaths,solutionDir)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TransformToCopilotReferences-System-Collections-Generic-IReadOnlyList{System-String},System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.TransformToCopilotReferences(System.Collections.Generic.IReadOnlyList{System.String},System.String)')
   - [TryCopyToClipboard()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-TryCopyToClipboard-System-String- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand.TryCopyToClipboard(System.String)')
+- [CopyCoPilotReferencesPackage](#T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage')
+  - [#ctor()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-#ctor 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage.#ctor')
+  - [PackageGuidString](#F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-PackageGuidString 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage.PackageGuidString')
+  - [#cctor()](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-#cctor 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage.#cctor')
+  - [InitializeAsync(cancellationToken,progress)](#M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-InitializeAsync-System-Threading-CancellationToken,System-IProgress{Microsoft-VisualStudio-Shell-ServiceProgressData}- 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage.InitializeAsync(System.Threading.CancellationToken,System.IProgress{Microsoft.VisualStudio.Shell.ServiceProgressData})')
 
 <a name='T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand'></a>
 ## CopyCoPilotReferencesCommand `type`
@@ -178,6 +184,30 @@ method.
 If accessed before initialization, this property will return
 `null`
 .
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-#cctor'></a>
+### #cctor() `method`
+
+##### Summary
+
+Initializes `static` data or performs actions that
+need to be performed once only for the
+[CopyCoPilotReferencesCommand](#T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesCommand')
+class.
+
+##### Parameters
+
+This method has no parameters.
+
+##### Remarks
+
+This constructor is called automatically prior to the first instance
+being created or before any `static` members are referenced.
+
+
+
+We've decorated this constructor with the `[Log(AttributeExclude = true)]`
+attribute in order to simplify the logging output.
 
 <a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesCommand-AppendDirectorySeparator-System-String-'></a>
 ### AppendDirectorySeparator() `method`
@@ -478,3 +508,104 @@ Copies text to the clipboard on the UI thread.
 ##### Parameters
 
 This method has no parameters.
+
+<a name='T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage'></a>
+## CopyCoPilotReferencesPackage `type`
+
+##### Namespace
+
+CopyCoPilotReferencesExtension
+
+##### Summary
+
+Represents the Visual Studio package for the `CopyCoPilotReferences`
+extension.
+
+##### Remarks
+
+This package is registered with Visual Studio to provide the functionality of
+the
+`CopyCoPilotReferences` extension.
+
+
+
+It supports asynchronous initialization and background loading to improve
+performance during Visual Studio startup.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Creates a new instance of
+[CopyCoPilotReferencesPackage](#T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage')
+and returns a reference to it.
+
+##### Parameters
+
+This constructor has no parameters.
+
+##### Remarks
+
+We've decorated this constructor with the
+`[Log(AttributeExclude = true)]` attribute in order to simplify the
+logging output.
+
+<a name='F-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-PackageGuidString'></a>
+### PackageGuidString `constants`
+
+##### Summary
+
+The [Guid](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Guid 'System.Guid') string for the package.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-#cctor'></a>
+### #cctor() `method`
+
+##### Summary
+
+Initializes `static` data or performs actions that
+need to be performed once only for the
+[CopyCoPilotReferencesPackage](#T-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage 'CopyCoPilotReferencesExtension.CopyCoPilotReferencesPackage')
+class.
+
+##### Parameters
+
+This method has no parameters.
+
+##### Remarks
+
+This constructor is called automatically prior to the first instance
+being created or before any `static` members are referenced.
+
+
+
+We've decorated this constructor with the `[Log(AttributeExclude = true)]`
+attribute in order to simplify the logging output.
+
+<a name='M-CopyCoPilotReferencesExtension-CopyCoPilotReferencesPackage-InitializeAsync-System-Threading-CancellationToken,System-IProgress{Microsoft-VisualStudio-Shell-ServiceProgressData}-'></a>
+### InitializeAsync(cancellationToken,progress) `method`
+
+##### Summary
+
+The async initialization portion of the package initialization process. This
+method is invoked from a background thread.
+
+##### Returns
+
+A task representing the async work of package initialization, or an
+already completed task if there is none. Do not return null from this method.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| cancellationToken | [System.Threading.CancellationToken](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Threading.CancellationToken 'System.Threading.CancellationToken') | A cancellation token to monitor for
+initialization cancellation, which can occur when VS is shutting down. |
+| progress | [System.IProgress{Microsoft.VisualStudio.Shell.ServiceProgressData}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IProgress 'System.IProgress{Microsoft.VisualStudio.Shell.ServiceProgressData}') | (Required.) Reference to an instance of an object that implements the
+[IProgress\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IProgress`1 'System.IProgress`1') interface that iṡ provided with a reference
+to [ServiceProgressData](#T-Microsoft-VisualStudio-Shell-ServiceProgressData 'Microsoft.VisualStudio.Shell.ServiceProgressData') as its
+type parameter.
+
+
+
+This object is used to report progress during initialization. |
