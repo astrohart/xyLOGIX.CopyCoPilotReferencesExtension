@@ -410,50 +410,117 @@ namespace CopyCoPilotReferencesExtension
         /// UI hierarchy tree.
         /// </remarks>
         [return: NotLogged]
-        private static IReadOnlyList<UIHierarchyItem> GetSelectedProjectItems(
+        private static IReadOnlyList<ProjectItem> GetSelectedProjectItems(
             [NotLogged] DTE2 dte2
         )
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var result = new AdvisableCollection<UIHierarchyItem>();
+            var result = new AdvisableCollection<ProjectItem>();
 
             try
             {
-                if (dte2 == null) return result;
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSelectedProjectItems: Checking whether the variable, 'dte2', has a null reference for a value..."
+                );
+
+                // Check to see if the variable, dte2, is null.  If it is, send an error
+                // to the log file and terminate the execution of this method, returning
+                // the default return value.
+                if (dte2 == null)
+                {
+                    // the variable dte2 is required to have a valid object reference.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.GetSelectedProjectItems: *** ERROR ***  The variable, 'dte2', has a null reference.  Stopping..."
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                // We can use the variable, dte2, because it's not set to a null reference.
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSelectedProjectItems: *** SUCCESS *** The variable, 'dte2', has a valid object reference for its value.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(DebugLevel.Info, $"*** FYI *** Attempting to get selected items from Solution Explorer...");
 
                 var selected = dte2.SelectedItems;
-                if (selected != null)
-                    foreach (SelectedItem sel in selected)
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSelectedProjectItems: Checking whether the variable, 'selected', has a null reference for a value..."
+                );
+
+                // Check to see if the variable, selected, is null.  If it is, send an error
+                // to the log file, and then terminate the execution of this method,
+                // returning the default return value.
+                if (selected == null)
+                {
+                    // the variable selected is required to have a valid object reference.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.GetSelectedProjectItems: *** ERROR ***  The variable, 'selected', has a null reference.  Stopping..."
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                // We can use the variable, selected, because it's not set to a null reference.
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSelectedProjectItems: *** SUCCESS *** The variable, 'selected', has a valid object reference for its value.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(DebugLevel.Info, $"*** FYI *** Going over the selected items...");
+
+                foreach (SelectedItem sel in selected)
+                {
+                    DebugUtils.WriteLine(
+                        DebugLevel.Info,
+                        "CopyCoPilotReferencesCommand.GetSelectedProjectItems: Checking whether the variable 'sel' has a null reference for a value..."
+                    );
+
+                    // Check to see if the variable, sel, is null. If it is, send an error to the log file and continue to the next loop iteration.
+                    if (sel == null)
                     {
-                        if (sel == null) continue;
+                        // the variable sel is required to have a valid object reference.
+                        DebugUtils.WriteLine(
+                            DebugLevel.Error,
+                            "CopyCoPilotReferencesCommand.GetSelectedProjectItems: *** ERROR ***  The 'sel' variable has a null reference.  Skipping to the next loop iteration..."
+                        );
 
-                        // Pattern matching + eager-continue
-                        if (sel.ProjectItem is UIHierarchyItem uih)
-                        {
-                            result.Add(uih);
-                            continue;
-                        }
-
-                        // If a project (not a file) is selected, skip; this command targets files.
-                        if (sel.Project != null) continue;
+                        // continue to the next loop iteration.
+                        continue;
                     }
 
-                if (result.Count > 0) return result;
+                    // We can use the variable, sel, because it's not set to a null reference.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Info,
+                        "CopyCoPilotReferencesCommand.GetSelectedProjectItems: *** SUCCESS *** The 'sel' variable has a valid object reference for its value.  Proceeding..."
+                    );
 
-                // Fallback to ActiveDocument.ProjectItem (when invoked from an editor tab)
-                var ad = dte2.ActiveDocument;
-                if (ad == null) return result;
+                    // Pattern matching + eager-continue
+                    if (sel.ProjectItem is ProjectItem pi)
+                    {
+                        result.Add(pi);
+                        continue;
+                    }
 
-                if (ad.ProjectItem is ProjectItem activePi)
-                    result.Add(activePi);
+                    // If a project (not a file) is selected, skip; this command targets files.
+                    if (sel.Project != null) continue;
+                }
             }
             catch (Exception ex)
             {
                 // dump all the exception info to the log
                 DebugUtils.LogException(ex);
 
-                result = new AdvisableCollection<UIHierarchyItem>();
+                result = new AdvisableCollection<ProjectItem>();
             }
 
             return result;
