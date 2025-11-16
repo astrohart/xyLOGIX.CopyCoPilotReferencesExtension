@@ -1,6 +1,4 @@
-﻿using PostSharp.Patterns.Diagnostics;
-
-namespace CCPRE.Generators.References.Constants
+﻿namespace CCPRE.Generators.References.Constants
 {
     /// <summary>
     /// Enumerates the different type(s) of Copilot reference generator(s)
@@ -22,7 +20,7 @@ namespace CCPRE.Generators.References.Constants
         /// Indicates that the generator should create a constant reference.
         /// </summary>
         Constant,
-        
+
         /// <summary>
         /// Indicates that the generator should create an event reference.
         /// </summary>
@@ -57,6 +55,6 @@ namespace CCPRE.Generators.References.Constants
         /// <summary>
         /// Indicates that the generator type is unknown or invalid.
         /// </summary>
-        Unknown = -1,
+        Unknown = -1
     }
 }
