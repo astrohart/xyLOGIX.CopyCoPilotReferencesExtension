@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using xyLOGIX.Core.Assemblies.Info;
 using xyLOGIX.Core.Debug;
 using xyLOGIX.Core.Files;
+using xyLOGIX.Core.TemplateWizard.Logging;
 
 namespace CopyCoPilotReferencesExtension
 {
@@ -949,7 +950,7 @@ namespace CopyCoPilotReferencesExtension
                     "*** FYI *** Attempting to initialize the logging subsystem..."
                 );
 
-                result = LoggingSubsystemManager.InitializeLogging(
+                result = WizardLoggingSubsystemManager.InitializeLogging(
                     muteConsole: false,
                     infrastructureType: LoggingInfrastructureType.PostSharp,
                     logFileName: logFilePath,
