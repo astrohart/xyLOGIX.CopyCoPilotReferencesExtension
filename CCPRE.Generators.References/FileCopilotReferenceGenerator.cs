@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using xyLOGIX.Core.Debug;
 using xyLOGIX.Core.Extensions;
+using xyLOGIX.Core.Files;
 
 namespace CCPRE.Generators.References
 {
@@ -226,7 +227,7 @@ namespace CCPRE.Generators.References
 
                 if (!string.Equals(
                         projectItem.Kind,
-                        Constants.vsProjectItemKindPhysicalFile,
+                        EnvDTE.Constants.vsProjectItemKindPhysicalFile,
                         StringComparison.Ordinal
                     ))
                     return result;
