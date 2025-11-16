@@ -59,6 +59,14 @@ namespace CCPRE.Generators.References
         protected CopilotReferenceGeneratorBase() { }
 
         /// <summary>
+        /// Gets the platform-specific directory separator character.
+        /// </summary>
+        private static char DirectorySeparatorChar
+        {
+            [DebuggerStepThrough] get;
+        } = Path.DirectorySeparatorChar;
+
+        /// <summary>
         /// Gets a
         /// <see
         ///     cref="T:CCPRE.Generators.References.Constants.CopilotReferenceGeneratorType" />
@@ -195,6 +203,120 @@ namespace CCPRE.Generators.References
         }
 
         /// <summary>
+        /// Appends a directory separator to the specified path if one is not already
+        /// present.
+        /// </summary>
+        /// <param name="path">
+        /// (Required.) A <see cref="T:System.String" /> that contains the path to a
+        /// folder, to which to append a directory separator.
+        /// </param>
+        /// <returns>
+        /// A <see cref="T:System.String" /> containing the path with a trailing
+        /// directory separator, or <see cref="F:System.String.Empty" /> if
+        /// <paramref name="path" /> is blank or whitespace.
+        /// </returns>
+        /// <remarks>
+        /// A folder having the fully-qualified pathname specified by the value of the
+        /// <paramref name="path" /> parameter must exist on the file system for this
+        /// method to work; otherwise, the method returns the
+        /// <see cref="F:System.String.Empty" /> value.
+        /// <para />
+        /// If the specified folder <paramref name="path" /> already has a trailing
+        /// directory separator, then this method is idempotent.
+        /// <para />
+        /// This method is used to ensure that path(s) are properly formatted for
+        /// <see cref="M:System.Uri.MakeRelativeUri(System.Uri)" /> operation(s).
+        /// <para />
+        /// This method returns <see cref="F:System.String.Empty" /> if
+        /// <paramref name="path" /> is blank or whitespace.
+        /// </remarks>
+        [return: NotLogged]
+        protected static string AppendDirectorySeparator(
+            [NotLogged] string path
+        )
+        {
+            var result = path;
+
+            try
+            {
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"CopilotReferenceGeneratorBase.AppendDirectorySeparator *** INFO: Checking whether the folder with path, '{path}', exists on the file system..."
+                );
+
+                // Check whether a folder having the path, 'path', exists on the file system.
+                // If it does not, then write an error message to the log file, and then terminate
+                // the execution of this method, returning the default return value.
+                if (!Does.FolderExist(path))
+                {
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        $"CopilotReferenceGeneratorBase.AppendDirectorySeparator: *** ERROR *** The system could not locate the folder having the path, '{path}', on the file system.  Stopping..."
+                    );
+
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug,
+                        $"*** CopilotReferenceGeneratorBase.AppendDirectorySeparator: Result = '{result}'"
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"CopilotReferenceGeneratorBase.AppendDirectorySeparator: *** SUCCESS *** The folder with path, '{path}', was found on the file system.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopilotReferenceGeneratorBase.AppendDirectorySeparator: Checking whether the provided pathname already has a trailing directory-separator character..."
+                );
+
+                // Check to see whether the provided pathname already has a trailing directory-separator character.
+                // If this is not the case, then write an error message to the log file,
+                // and then terminate the execution of this method.
+                if (path[path.Length - 1] == DirectorySeparatorChar)
+                {
+                    // The specified pathname already has a trailing directory-separator character.  This is not desirable.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "*** ERROR *** The specified pathname already has a trailing directory-separator character.  Stopping..."
+                    );
+
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug,
+                        $"*** CopilotReferenceGeneratorBase.AppendDirectorySeparator: Result = '{result}'"
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopilotReferenceGeneratorBase.AppendDirectorySeparator: *** SUCCESS *** The provided pathname does NOT already have a trailing directory-separator character.  Adding it..."
+                );
+
+                result = path + DirectorySeparatorChar;
+            }
+            catch (Exception ex)
+            {
+                // dump all the exception info to the log
+                DebugUtils.LogException(ex);
+
+                result = string.Empty;
+            }
+
+            DebugUtils.WriteLine(
+                DebugLevel.Debug,
+                $"CopilotReferenceGeneratorBase.AppendDirectorySeparator: Result = '{result}'"
+            );
+
+            return result;
+        }
+
+        /// <summary>
         /// When overridden in a derived class, generates a GitHub Copilot reference
         /// string from the specified Visual Studio object.
         /// </summary>
@@ -235,55 +357,5 @@ namespace CCPRE.Generators.References
             [NotLogged] object selectedObject,
             [NotLogged] string solutionDirectory
         );
-
-        /// <summary>
-        /// Appends a directory separator to the specified path if one is not already
-        /// present.
-        /// </summary>
-        /// <param name="path">
-        /// (Required.) A <see cref="T:System.String" /> that contains the path to
-        /// which to append a directory separator.
-        /// </param>
-        /// <returns>
-        /// A <see cref="T:System.String" /> containing the path with a trailing
-        /// directory separator, or <see cref="F:System.String.Empty" /> if
-        /// <paramref name="path" /> is blank or whitespace.
-        /// </returns>
-        /// <remarks>
-        /// This method is used to ensure that path(s) are properly formatted for
-        /// <see cref="M:System.Uri.MakeRelativeUri(System.Uri)" /> operation(s).
-        /// <para />
-        /// This method returns <see cref="F:System.String.Empty" /> if
-        /// <paramref name="path" /> is blank or whitespace.
-        /// </remarks>
-        [return: NotLogged]
-        protected static string AppendDirectorySeparator([NotLogged] string path)
-        {
-            var result = string.Empty;
-
-            try
-            {
-                if (string.IsNullOrWhiteSpace(path))
-                    return result;
-
-                var separator = Path.DirectorySeparatorChar;
-                if (path[path.Length - 1] == separator)
-                {
-                    result = path;
-                    return result;
-                }
-
-                result = path + separator;
-            }
-            catch (Exception ex)
-            {
-                // dump all the exception info to the log
-                DebugUtils.LogException(ex);
-
-                result = string.Empty;
-            }
-
-            return result;
-        }
     }
 }
