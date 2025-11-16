@@ -15,9 +15,9 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using xyLOGIX.Core.Assemblies.Info;
 using xyLOGIX.Core.Debug;
 using xyLOGIX.Core.Files;
-using Constants = EnvDTE.Constants;
 
 namespace CopyCoPilotReferencesExtension
 {
@@ -250,7 +250,7 @@ namespace CopyCoPilotReferencesExtension
 
                 waitDialog = StartWaitDialog(
                     "Microsoft Visual Studio",
-                    "Collecting selection and formatting paths…", "Working…"
+                    "Collecting selection and formatting paths...", "Working..."
                 );
 
                 var projectItems = GetSelectedProjectItems(dte2);
@@ -739,19 +739,79 @@ namespace CopyCoPilotReferencesExtension
         {
             try
             {
+                LoggingSubsystemManager.InitializeLogging(
+                    muteConsole: false,
+                    infrastructureType: LoggingInfrastructureType.PostSharp,
+                    logFileName: Get.LogFilePath(),
+                    applicationName: Get.ApplicationProductName()
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the method parameter, 'package', has a null reference for a value..."
+                );
+
+                // Check to see if the required parameter, 'package', is null. If it is,
+                // then write an error message to the log file and then terminate the
+                // execution of this method, returning the default return value.
                 if (package == null)
+                {
+                    // The method parameter, 'package', is required and is not supposed
+                    // to have a NULL value.  It does, and this is not desirable.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.InitializeAsync: *** ERROR *** A null reference was passed for the method parameter, 'package'.  Stopping..."
+                    );
+
+                    // stop.
                     return;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** We have been passed a valid object reference for the method parameter, 'package'.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** FYI *** Switching to the main UI thread..."
+                );
 
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(
                     package.DisposalToken
                 );
 
-                var commandService =
-                    await package.GetServiceAsync(typeof(IMenuCommandService))
-                        as IMenuCommandService;
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** CopyCoPilotReferencesCommand.InitializeAsync: Checking whether the menu command service could be obtained..."
+                );
 
-                if (commandService == null)
+                // Check to see whether the menu command service could be obtained.
+                // If this is not the case, then write an FYI message to the log file
+                // explaining that there is nothing more that can be done, and then 
+                // terminate the execution of this method.
+                if (!(await package.GetServiceAsync(typeof(IMenuCommandService))
+                        is IMenuCommandService commandService))
+                {
+                    // The menu command service was NOT obtained.  There is nothing to do.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Info,
+                        "*** FYI *** The menu command service was NOT obtained.  Nothing to do..."
+                    );
+
+                    // stop.
                     return;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.InitializeAsync: *** SUCCESS *** The menu command service could be obtained.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** FYI *** Setting the value of the 'Instance' property..."
+                );
 
                 Instance = new CopyCoPilotReferencesCommand(
                     package, commandService
@@ -884,58 +944,6 @@ namespace CopyCoPilotReferencesExtension
         }
 
         /// <summary>
-        /// Extracts the absolute path for a single <see cref="T:EnvDTE.ProjectItem" /> if
-        /// it is a physical file.
-        /// </summary>
-        /// <param name="projectItem">Reference to a <see cref="T:EnvDTE.ProjectItem" />.</param>
-        /// <returns>The absolute file path, or <see langword="null" /> on failure.</returns>
-        /// <remarks>
-        /// Skips non-physical items and items with no files. Bounds-checks FileCount and
-        /// FileNames[1].
-        /// </remarks>
-        [return: NotLogged]
-        private static string ProcessProjectItem(
-            [NotLogged] ProjectItem projectItem
-        )
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            var result = default(string);
-            try
-            {
-                if (projectItem == null) return result;
-
-                // Only physical files
-                if (!string.Equals(
-                        projectItem.Kind,
-                        Constants.vsProjectItemKindPhysicalFile,
-                        StringComparison.Ordinal
-                    ))
-                    return result;
-
-                if (projectItem.FileCount < 1) return result;
-
-                // 1-based index
-                var candidate = projectItem.FileNames[1];
-                if (string.IsNullOrWhiteSpace(candidate)) return result;
-
-                // Ensure absolute and existent path
-                if (!Path.IsPathRooted(candidate)) return result;
-                if (!File.Exists(candidate)) return result;
-
-                result = candidate;
-            }
-            catch (Exception ex)
-            {
-                // dump all the exception info to the log
-                DebugUtils.LogException(ex);
-                result = default;
-            }
-
-            return result;
-        }
-
-        /// <summary>
         /// Shows the VS Threaded Wait Dialog with a marquee progress bar.
         /// </summary>
         [return: NotLogged]
@@ -947,16 +955,80 @@ namespace CopyCoPilotReferencesExtension
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            IVsThreadedWaitDialog2 result = null;
+            IVsThreadedWaitDialog2 result = default;
+
             try
             {
-                var factory =
-                    Package.GetGlobalService(
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** CopyCoPilotReferencesCommand.StartWaitDialog: Checking whether the threaded wait dialog service could be activated..."
+                );
+
+                // Check to see whether the threaded wait dialog service could be activated.
+                // If this is not the case, then write an error message to the log file,
+                // and then terminate the execution of this method.
+                if (!(Package.GetGlobalService(
                         typeof(SVsThreadedWaitDialogFactory)
-                    ) as IVsThreadedWaitDialogFactory;
-                if (factory == null) return result;
+                    ) is IVsThreadedWaitDialogFactory factory))
+                {
+                    // The threaded wait dialog service could NOT be activated.  This is not desirable.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "*** ERROR *** The threaded wait dialog service could NOT be activated.  Stopping..."
+                    );
+
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug,
+                        $"*** CopyCoPilotReferencesCommand.StartWaitDialog: Result = {result}"
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.StartWaitDialog: *** SUCCESS *** The threaded wait dialog service was activated.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** FYI *** Creating the threaded wait dialog..."
+                );
 
                 factory.CreateInstance(out result);
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.StartWaitDialog: Checking whether the variable, 'result', has a null reference for a value..."
+                );
+
+                // Check to see if the variable, result, is null.  If it is, send an error
+                // to the log file, and then terminate the execution of this method,
+                // returning the default return value.
+                if (result == null)
+                {
+                    // the variable result is required to have a valid object reference.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.StartWaitDialog: *** ERROR ***  The variable, 'result', has a null reference.  Stopping..."
+                    );
+
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug,
+                        $"*** CopyCoPilotReferencesCommand.StartWaitDialog: Result = {result}"
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                // We can use the variable, result, because it's not set to a null reference.
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.StartWaitDialog: *** SUCCESS *** The variable, 'result', has a valid object reference for its value.  Proceeding..."
+                );
+
                 if (result == null) return result;
 
                 // Cancel disabled; marquee enabled
@@ -968,8 +1040,16 @@ namespace CopyCoPilotReferencesExtension
             {
                 // dump all the exception info to the log
                 DebugUtils.LogException(ex);
-                result = null;
+
+                result = default;
             }
+
+            DebugUtils.WriteLine(
+                result != null ? DebugLevel.Info : DebugLevel.Error,
+                result != null
+                    ? "*** SUCCESS *** Obtained a reference to the threaded wait dialog.  Proceeding..."
+                    : "*** ERROR *** FAILED to obtain a reference to the threaded wait dialog.  Stopping..."
+            );
 
             return result;
         }
@@ -991,6 +1071,97 @@ namespace CopyCoPilotReferencesExtension
                 // dump all the exception info to the log
                 DebugUtils.LogException(ex);
             }
+        }
+
+        /// <summary>
+        /// Exposes static methods to obtain data from various data sources.
+        /// </summary>
+        private static class Get
+        {
+            /// <summary>
+            /// A <see cref="T:System.String" /> containing the final piece of the path of the
+            /// log file.
+            /// </summary>
+            private static readonly string LOG_FILE_PATH_TERMINATOR =
+                $@"{AssemblyCompany}\{AssemblyProduct}\Logs\{AssemblyTitle}_log.txt";
+
+            /// <summary>
+            /// Gets a <see cref="T:System.String" /> that contains the product name defined
+            /// for this application.
+            /// </summary>
+            /// <remarks>
+            /// This property is really an alias for the
+            /// <see cref="P:xyLOGIX.Core.Assemblies.Info.AssemblyMetadata.AssemblyCompany" />
+            /// property.
+            /// </remarks>
+            private static string AssemblyCompany
+                => AssemblyMetadata.AssemblyCompany;
+
+            /// <summary>
+            /// Gets a <see cref="T:System.String" /> that contains the product name defined
+            /// for this application.
+            /// </summary>
+            /// <remarks>
+            /// This property is really an alias for the
+            /// <see cref="P:xyLOGIX.Core.Assemblies.Info.AssemblyMetadata.ShortProductName" />
+            /// property.
+            /// </remarks>
+            private static string AssemblyProduct
+                => AssemblyMetadata.ShortProductName;
+
+            /// <summary>
+            /// Gets a <see cref="T:System.String" /> that contains the assembly title defined
+            /// for this application.
+            /// </summary>
+            /// <remarks>
+            /// This property is really an alias for the
+            /// <see cref="P:xyLOGIX.Core.Assemblies.Info.AssemblyMetadata.AssemblyTitle" />
+            /// property --- except that all whitespace is replace with underscores.
+            /// </remarks>
+            private static string AssemblyTitle
+                => AssemblyMetadata.AssemblyTitle.Replace(" ", "_");
+
+            /// <summary>
+            /// Gets a <see cref="T:System.String" /> that contains a user-friendly name for
+            /// the software product of which this application or class library is a part.
+            /// </summary>
+            /// <returns>
+            /// A <see cref="T:System.String" /> that contains a user-friendly name for the
+            /// software product of which this application or class library is a part.
+            /// </returns>
+            public static string ApplicationProductName()
+            {
+                string result;
+
+                try
+                {
+                    result = AssemblyProduct;
+                }
+                catch (Exception ex)
+                {
+                    // dump all the exception info to the log
+                    DebugUtils.LogException(ex);
+
+                    result = string.Empty;
+                }
+
+                return result;
+            }
+
+            /// <summary>
+            /// Obtains a <see cref="T:System.String" /> that contains the fully-qualified
+            /// pathname of the file that should be used for logging messages.
+            /// </summary>
+            /// <returns>
+            /// A <see cref="T:System.String" /> that contains the fully-qualified pathname of
+            /// the file that should be used for logging messages.
+            /// </returns>
+            public static string LogFilePath()
+                => Path.Combine(
+                    Environment.GetFolderPath(
+                        Environment.SpecialFolder.CommonApplicationData
+                    ), LOG_FILE_PATH_TERMINATOR
+                );
         }
     }
 }
