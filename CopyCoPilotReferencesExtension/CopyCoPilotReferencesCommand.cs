@@ -186,8 +186,22 @@ namespace CopyCoPilotReferencesExtension
         }
 
         /// <summary>
-        /// Ends the wait dialog if it was shown.
+        /// Ends the specified wait <paramref name="dialog" />, if it is active.
         /// </summary>
+        /// <param name="dialog">
+        /// (Required.) Reference to an instance of an object that implements the
+        /// <see cref="T:Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2" />
+        /// interface.
+        /// <para />
+        /// This parameter can also be set to a <see langword="null" /> reference; in which
+        /// case, the method does nothing.
+        /// </param>
+        /// <remarks>
+        /// This method must be called on the UI thread.
+        /// <para />
+        /// If an exception occurs while ending the dialog, the exception is logged, and
+        /// the method continues execution without propagating the exception.
+        /// </remarks>
         private static void EndWaitDialog(
             [NotLogged] IVsThreadedWaitDialog2 dialog
         )
@@ -196,7 +210,36 @@ namespace CopyCoPilotReferencesExtension
 
             try
             {
-                if (dialog == null) return;
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.EndWaitDialog: Checking whether the method parameter, 'dialog', has a null reference for a value..."
+                );
+
+                // Check to see if the required parameter, 'dialog', is null. If it is,
+                // then write an error message to the log file and then terminate the
+                // execution of this method, returning the default return value.
+                if (dialog == null)
+                {
+                    // The method parameter, 'dialog', is required and is not supposed
+                    // to have a NULL value.  It does, and this is not desirable.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.EndWaitDialog: *** ERROR *** A null reference was passed for the method parameter, 'dialog'.  Stopping..."
+                    );
+
+                    // stop.
+                    return;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.EndWaitDialog: *** SUCCESS *** We have been passed a valid object reference for the method parameter, 'dialog'.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info, "*** FYI *** Ending the wait dialog..."
+                );
+
                 dialog.EndWaitDialog(out _);
             }
             catch (Exception ex)
@@ -944,8 +987,36 @@ namespace CopyCoPilotReferencesExtension
         }
 
         /// <summary>
-        /// Shows the VS Threaded Wait Dialog with a marquee progress bar.
+        /// Creates and starts a <c>Threaded Wait Dialog</c> with the specified
+        /// <paramref name="caption" />, <paramref name="message" />, and
+        /// <paramref name="status" /> text.
         /// </summary>
+        /// <remarks>
+        /// This method initializes and displays a <c>Threaded Wait Dialog</c>
+        /// using Visual Studio's <c>Wait Dialog Service</c> component..
+        /// <para />
+        /// If the service is unavailable or an error occurs during initialization, the
+        /// method returns <see langword="null" />.
+        /// </remarks>
+        /// <param name="caption">
+        /// (Required.) A <see cref="T:System.String" /> containing
+        /// the caption text to display in the titlebar of the <c>Wait Dialog</c>.
+        /// </param>
+        /// <param name="message">
+        /// (Required.) A <see cref="T:System.String" /> containing
+        /// the main message text to display in the <c>Wait Dialog</c>.
+        /// </param>
+        /// <param name="status">
+        /// (Required.) A <see cref="T:System.String" /> containing
+        /// the status text to display in the <c>Wait Dialog</c>, providing additional
+        /// context or progress information.
+        /// </param>
+        /// <returns>
+        /// Reference to an instance of an object that implements the
+        /// <see cref="T:Microsoft.VisualStudio.Shell.Interop.IVsThreadedWaitDialog2" />
+        /// interface representing the active <c>Wait Dialog</c>, or
+        /// <see langword="null" /> if the dialog could not be created.
+        /// </returns>
         [return: NotLogged]
         private static IVsThreadedWaitDialog2 StartWaitDialog(
             [NotLogged] string caption,
@@ -961,20 +1032,20 @@ namespace CopyCoPilotReferencesExtension
             {
                 DebugUtils.WriteLine(
                     DebugLevel.Info,
-                    "*** CopyCoPilotReferencesCommand.StartWaitDialog: Checking whether the threaded wait dialog service could be activated..."
+                    "*** CopyCoPilotReferencesCommand.StartWaitDialog: Checking whether the <c>Threaded Wait Dialog</c> service could be activated..."
                 );
 
-                // Check to see whether the threaded wait dialog service could be activated.
+                // Check to see whether the <c>Threaded Wait Dialog</c> service could be activated.
                 // If this is not the case, then write an error message to the log file,
                 // and then terminate the execution of this method.
                 if (!(Package.GetGlobalService(
                         typeof(SVsThreadedWaitDialogFactory)
                     ) is IVsThreadedWaitDialogFactory factory))
                 {
-                    // The threaded wait dialog service could NOT be activated.  This is not desirable.
+                    // The <c>Threaded Wait Dialog</c> service could NOT be activated.  This is not desirable.
                     DebugUtils.WriteLine(
                         DebugLevel.Error,
-                        "*** ERROR *** The threaded wait dialog service could NOT be activated.  Stopping..."
+                        "*** ERROR *** The <c>Threaded Wait Dialog</c> service could NOT be activated.  Stopping..."
                     );
 
                     DebugUtils.WriteLine(
@@ -988,12 +1059,12 @@ namespace CopyCoPilotReferencesExtension
 
                 DebugUtils.WriteLine(
                     DebugLevel.Info,
-                    "CopyCoPilotReferencesCommand.StartWaitDialog: *** SUCCESS *** The threaded wait dialog service was activated.  Proceeding..."
+                    "CopyCoPilotReferencesCommand.StartWaitDialog: *** SUCCESS *** The <c>Threaded Wait Dialog</c> service was activated.  Proceeding..."
                 );
 
                 DebugUtils.WriteLine(
                     DebugLevel.Info,
-                    "*** FYI *** Creating the threaded wait dialog..."
+                    "*** FYI *** Creating the <c>Threaded Wait Dialog</c>..."
                 );
 
                 factory.CreateInstance(out result);
@@ -1031,7 +1102,7 @@ namespace CopyCoPilotReferencesExtension
 
                 DebugUtils.WriteLine(
                     DebugLevel.Info,
-                    $"*** FYI *** Requesting that Visual Studio display the threaded wait dialog with caption, '{caption}'; message, '{message}'; and status, '{status}'..."
+                    $"*** FYI *** Requesting that Visual Studio display the <c>Threaded Wait Dialog</c> with caption, '{caption}'; message, '{message}'; and status, '{status}'..."
                 );
 
                 // Cancel disabled; marquee enabled
@@ -1050,23 +1121,62 @@ namespace CopyCoPilotReferencesExtension
             DebugUtils.WriteLine(
                 result != null ? DebugLevel.Info : DebugLevel.Error,
                 result != null
-                    ? "*** SUCCESS *** Obtained a reference to the threaded wait dialog.  Proceeding..."
-                    : "*** ERROR *** FAILED to obtain a reference to the threaded wait dialog.  Stopping..."
+                    ? "*** SUCCESS *** Obtained a reference to the <c>Threaded Wait Dialog</c>.  Proceeding..."
+                    : "*** ERROR *** FAILED to obtain a reference to the <c>Threaded Wait Dialog</c>.  Stopping..."
             );
 
             return result;
         }
 
         /// <summary>
-        /// Copies text to the clipboard on the UI thread.
+        /// Makes an attempt to copy the specified <paramref name="text" /> to the
+        /// Clipboard.
         /// </summary>
+        /// <param name="text">
+        /// (Required.) A <see cref="T:System.String" /> containing the text that is to be
+        /// copied to the Clipboard.
+        /// </param>
+        /// <remarks>
+        /// If the specified <paramref name="text" /> is <see langword="null" />,
+        /// blank, or the <see cref="F:System.String.Empty" /> value, then the method does
+        /// nothing.
+        /// </remarks>
         private static void TryCopyToClipboard([NotLogged] string text)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             try
             {
-                if (string.IsNullOrWhiteSpace(text)) return;
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.TryCopyToClipboard: Checking whether the variable, 'text', has a null reference for a value, or is blank..."
+                );
+
+                // Check to see if the required variable, 'text', is null or blank. If it is, 
+                // then send an  error to the log file and then terminate the execution of this
+                // method.
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    // the variable text is required.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.TryCopyToClipboard: *** ERROR *** The variable, 'text', has a null reference or is blank.  Stopping..."
+                    );
+
+                    // stop.
+                    return;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"CopyCoPilotReferencesCommand.TryCopyToClipboard: *** SUCCESS *** {text.Length} B of data appear to be present in the variable, 'text'.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"*** FYI *** Copying {text.Length} B of the text to the Clipboard..."
+                );
+
                 Clipboard.SetText(text);
             }
             catch (Exception ex)
