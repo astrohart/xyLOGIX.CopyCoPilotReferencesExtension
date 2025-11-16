@@ -429,9 +429,9 @@ namespace CopyCoPilotReferencesExtension
                         if (sel == null) continue;
 
                         // Pattern matching + eager-continue
-                        if (sel.ProjectItem is ProjectItem pi)
+                        if (sel.ProjectItem is UIHierarchyItem uih)
                         {
-                            result.Add(pi);
+                            result.Add(uih);
                             continue;
                         }
 
