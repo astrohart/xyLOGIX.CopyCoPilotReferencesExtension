@@ -91,56 +91,6 @@ namespace CCPRE.Generators.References
         }
 
         /// <summary>
-        /// Appends a directory separator to the specified path if one is not already
-        /// present.
-        /// </summary>
-        /// <param name="path">
-        /// (Required.) A <see cref="T:System.String" /> that contains the path to
-        /// which to append a directory separator.
-        /// </param>
-        /// <returns>
-        /// A <see cref="T:System.String" /> containing the path with a trailing
-        /// directory separator, or <see cref="F:System.String.Empty" /> if
-        /// <paramref name="path" /> is blank or whitespace.
-        /// </returns>
-        /// <remarks>
-        /// This method is used to ensure that path(s) are properly formatted for
-        /// <see cref="M:System.Uri.MakeRelativeUri(System.Uri)" /> operation(s).
-        /// <para />
-        /// This method returns <see cref="F:System.String.Empty" /> if
-        /// <paramref name="path" /> is blank or whitespace.
-        /// </remarks>
-        [return: NotLogged]
-        private static string AppendDirectorySeparator([NotLogged] string path)
-        {
-            var result = string.Empty;
-
-            try
-            {
-                if (string.IsNullOrWhiteSpace(path))
-                    return result;
-
-                var separator = Path.DirectorySeparatorChar;
-                if (path[path.Length - 1] == separator)
-                {
-                    result = path;
-                    return result;
-                }
-
-                result = path + separator;
-            }
-            catch (Exception ex)
-            {
-                // dump all the exception info to the log
-                DebugUtils.LogException(ex);
-
-                result = string.Empty;
-            }
-
-            return result;
-        }
-
-        /// <summary>
         /// Normalizes path separator(s) to forward slash(es) for GitHub Copilot
         /// compatibility.
         /// </summary>
