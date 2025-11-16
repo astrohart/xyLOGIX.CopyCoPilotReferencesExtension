@@ -782,6 +782,10 @@ namespace CopyCoPilotReferencesExtension
         {
             try
             {
+                Debug.WriteLine(
+                    "CopyCoPilotReferencesCommand.InitializeAsync: *** FYI *** Attempting to initialize the logging subsystem..."
+                );
+
                 LoggingSubsystemManager.InitializeLogging(
                     muteConsole: false,
                     infrastructureType: LoggingInfrastructureType.PostSharp,
