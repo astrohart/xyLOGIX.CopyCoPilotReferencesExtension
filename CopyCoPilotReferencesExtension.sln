@@ -75,6 +75,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xyLOGIX.Validators.Paths.Ac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xyLOGIX.Validators.Paths", "..\xyLOGIX.Validators.Paths.VS2022\xyLOGIX.Validators.Paths\xyLOGIX.Validators.Paths.csproj", "{1050BF77-889A-4AE3-AC81-146DA1010F3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xyLOGIX.Validators.Paths.Wildcards.Interfaces", "..\xyLOGIX.Validators.Paths.Wildcards.VS2022\xyLOGIX.Validators.Paths.Wildcards.Interfaces\xyLOGIX.Validators.Paths.Wildcards.Interfaces.csproj", "{279CE379-A3E0-4461-8AFE-FC84A1D4573F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xyLOGIX.Validators.Paths.Wildcards.Factories", "..\xyLOGIX.Validators.Paths.Wildcards.VS2022\xyLOGIX.Validators.Paths.Wildcards.Factories\xyLOGIX.Validators.Paths.Wildcards.Factories.csproj", "{CD33A992-E9BA-4BE6-B044-348699C1CAAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xyLOGIX.Validators.Paths.Wildcards", "..\xyLOGIX.Validators.Paths.Wildcards.VS2022\xyLOGIX.Validators.Paths.Wildcards\xyLOGIX.Validators.Paths.Wildcards.csproj", "{273535A9-59A3-43CD-B849-DA53EBCDF786}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -457,6 +463,42 @@ Global
 		{1050BF77-889A-4AE3-AC81-146DA1010F3E}.Release|arm64.Build.0 = Release|x64
 		{1050BF77-889A-4AE3-AC81-146DA1010F3E}.Release|x86.ActiveCfg = Release|x86
 		{1050BF77-889A-4AE3-AC81-146DA1010F3E}.Release|x86.Build.0 = Release|x86
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Debug|Any CPU.Build.0 = Debug|x64
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Debug|arm64.ActiveCfg = Debug|x64
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Debug|arm64.Build.0 = Debug|x64
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Debug|x86.ActiveCfg = Debug|x86
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Debug|x86.Build.0 = Debug|x86
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Release|Any CPU.ActiveCfg = Release|x64
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Release|Any CPU.Build.0 = Release|x64
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Release|arm64.ActiveCfg = Release|x64
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Release|arm64.Build.0 = Release|x64
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Release|x86.ActiveCfg = Release|x86
+		{279CE379-A3E0-4461-8AFE-FC84A1D4573F}.Release|x86.Build.0 = Release|x86
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Debug|Any CPU.Build.0 = Debug|x64
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Debug|arm64.ActiveCfg = Debug|x64
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Debug|arm64.Build.0 = Debug|x64
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Debug|x86.ActiveCfg = Debug|x86
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Debug|x86.Build.0 = Debug|x86
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Release|Any CPU.ActiveCfg = Release|x64
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Release|Any CPU.Build.0 = Release|x64
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Release|arm64.ActiveCfg = Release|x64
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Release|arm64.Build.0 = Release|x64
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Release|x86.ActiveCfg = Release|x86
+		{CD33A992-E9BA-4BE6-B044-348699C1CAAD}.Release|x86.Build.0 = Release|x86
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Debug|Any CPU.Build.0 = Debug|x64
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Debug|arm64.ActiveCfg = Debug|x64
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Debug|arm64.Build.0 = Debug|x64
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Debug|x86.ActiveCfg = Debug|x86
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Debug|x86.Build.0 = Debug|x86
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Release|Any CPU.ActiveCfg = Release|x64
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Release|Any CPU.Build.0 = Release|x64
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Release|arm64.ActiveCfg = Release|x64
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Release|arm64.Build.0 = Release|x64
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Release|x86.ActiveCfg = Release|x86
+		{273535A9-59A3-43CD-B849-DA53EBCDF786}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
