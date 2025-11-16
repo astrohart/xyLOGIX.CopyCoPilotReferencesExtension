@@ -10,7 +10,7 @@
 
 using System;
 
-namespace xyLOGIX.Validators.Paths.Wildcards.Interfaces.Properties
+namespace CCPRE.Generators.References.Validators.Properties
 {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
@@ -32,7 +32,7 @@ namespace xyLOGIX.Validators.Paths.Wildcards.Interfaces.Properties
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 
         /// <summary>
-        /// Constructs a new instance of <see cref="T:xyLOGIX.Validators.Paths.Wildcards.Interfaces.Properties.Resources" /> and returns a reference to it.
+        /// Constructs a new instance of <see cref="T:CCPRE.Generators.References.Validators.Properties.Resources" /> and returns a reference to it.
         /// </summary>		
         public Resources()
         {
@@ -48,7 +48,7 @@ namespace xyLOGIX.Validators.Paths.Wildcards.Interfaces.Properties
             {
                 if (object.ReferenceEquals(resourceMan, null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("xyLOGIX.Validators.Paths.Wildcards.Interfaces.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CCPRE.Generators.References.Validators.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

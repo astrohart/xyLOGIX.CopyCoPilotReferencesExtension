@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("xyLOGIX.Validators.Paths.Wildcards")]
-[assembly: AssemblyDescription("Provides object(s) and functionality for generating GitHub Copilot Chat reference(s) from Visual Studio selection(s) in Solution Explorer.  Supports multiple reference format(s) including file path(s), project(s), and code element(s) (class(es), method(s), property(ies), field(s), event(s), and constant(s)).  Implements the Singleton Strategy Factory pattern to dynamically select the appropriate reference generation strategy based on the type of Visual Studio element selected by the user.  This particular library holds the concrete class(es) and implementation(s) of the component.")]
+[assembly: AssemblyTitle("CCPRE.Generators.References.Validators.Interfaces")]
+[assembly: AssemblyDescription("Provides object(s) and functionality for generating GitHub Copilot Chat reference(s) from Visual Studio selection(s) in Solution Explorer.  Supports multiple reference format(s) including file path(s), project(s), and code element(s) (class(es), method(s), property(ies), field(s), event(s), and constant(s)).  Implements the Singleton Strategy Factory pattern to dynamically select the appropriate reference generation strategy based on the type of Visual Studio element selected by the user.  This particular class library holds the C# interface(s) for this component.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("xyLOGIX, LLC")]
 [assembly: AssemblyProduct("xyLOGIX Copy Copilot Reference Extension")]
@@ -23,7 +23,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6d2555d9-a00b-48d7-9c0d-d174088b22cb")]
+[assembly: Guid("f5663e04-b628-4886-b98b-51b8e86b40ed")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -43,11 +43,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCPRE.Generators.References
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCPRE.Generators.References.Interfaces", "CCPRE.Generators.References.Interfaces\CCPRE.Generators.References.Interfaces.csproj", "{694F157E-A60D-490E-B48B-263DCD99A8DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xyLOGIX.Validators.Paths.Wildcards", "xyLOGIX.Validators.Paths.Wildcards\xyLOGIX.Validators.Paths.Wildcards.csproj", "{3EA27A18-3086-4E6B-AEFD-D5F72B2C035F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCPRE.Generators.References.Validators", "CCPRE.Generators.References.Validators\CCPRE.Generators.References.Validators.csproj", "{3EA27A18-3086-4E6B-AEFD-D5F72B2C035F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xyLOGIX.Validators.Paths.Wildcards.Factories", "xyLOGIX.Validators.Paths.Wildcards.Factories\xyLOGIX.Validators.Paths.Wildcards.Factories.csproj", "{CB32084B-FDCD-4FBC-A564-F3C6E0497684}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCPRE.Generators.References.Validators.Factories", "CCPRE.Generators.References.Validators.Factories\CCPRE.Generators.References.Validators.Factories.csproj", "{CB32084B-FDCD-4FBC-A564-F3C6E0497684}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xyLOGIX.Validators.Paths.Wildcards.Interfaces", "xyLOGIX.Validators.Paths.Wildcards.Interfaces\xyLOGIX.Validators.Paths.Wildcards.Interfaces.csproj", "{2783C742-A336-449D-B914-4BCFE0742575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCPRE.Generators.References.Validators.Interfaces", "CCPRE.Generators.References.Validators.Interfaces\CCPRE.Generators.References.Validators.Interfaces.csproj", "{2783C742-A336-449D-B914-4BCFE0742575}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -282,4 +282,4 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58E08680-2F47-470F-B41E-5CED2DB9A110}
 	EndGlobalSection
-EndGlobal  
+EndGlobal

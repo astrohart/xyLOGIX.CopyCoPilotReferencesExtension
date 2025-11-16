@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("xyLOGIX.Validators.Paths.Wildcards.Factories")]
+[assembly: AssemblyTitle("CCPRE.Generators.References.Validators.Factories")]
 [assembly:
     AssemblyDescription(
         "Provides object(s) and functionality for generating GitHub Copilot Chat reference(s) from Visual Studio selection(s) in Solution Explorer.  Supports multiple reference format(s) including file path(s), project(s), and code element(s) (class(es), method(s), property(ies), field(s), event(s), and constant(s)).  Implements the Singleton Strategy Factory pattern to dynamically select the appropriate reference generation strategy based on the type of Visual Studio element selected by the user.  This particular class library holds the factory(ies) for this component."
