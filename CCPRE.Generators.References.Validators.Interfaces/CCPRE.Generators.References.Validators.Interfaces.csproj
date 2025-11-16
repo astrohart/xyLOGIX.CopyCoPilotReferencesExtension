@@ -142,6 +142,10 @@
       <Project>{5528d7fb-b88b-4e9d-9bbd-b6b6b893666a}</Project>
       <Name>xyLOGIX.Core.Extensions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CCPRE.Generators.References.Constants\CCPRE.Generators.References.Constants.csproj">
+      <Project>{28ad5714-bfc0-4f3e-bd83-4714f6d68893}</Project>
+      <Name>CCPRE.Generators.References.Constants</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="1382_cogs.ico" />
