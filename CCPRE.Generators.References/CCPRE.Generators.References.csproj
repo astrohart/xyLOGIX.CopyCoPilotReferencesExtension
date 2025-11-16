@@ -143,6 +143,10 @@
       <Project>{5528d7fb-b88b-4e9d-9bbd-b6b6b893666a}</Project>
       <Name>xyLOGIX.Core.Extensions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\xyLOGIX.Core.Files.VS2019\xyLOGIX.Core.Files\xyLOGIX.Core.Files.csproj">
+      <Project>{4BACCE79-0960-4445-975E-DB92F5A555A4}</Project>
+      <Name>xyLOGIX.Core.Files</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CCPRE.Generators.References.Constants\CCPRE.Generators.References.Constants.csproj">
       <Project>{28AD5714-BFC0-4F3E-BD83-4714F6D68893}</Project>
       <Name>CCPRE.Generators.References.Constants</Name>
