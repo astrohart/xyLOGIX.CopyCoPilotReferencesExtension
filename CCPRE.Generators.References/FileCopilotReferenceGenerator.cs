@@ -360,8 +360,33 @@ namespace CCPRE.Generators.References
                     "FileCopilotReferenceGenerator.ToSolutionRelative: *** SUCCESS *** The pathname specified for the value of the 'absolutePath' parameter is, indeed, an absolute pathname.  Proceeding..."
                 );
 
-                if (string.IsNullOrWhiteSpace(solutionDirectory))
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"FileCopilotReferenceGenerator.ToSolutionRelative *** INFO: Checking whether the folder with path, '{solutionDirectory}', exists on the file system..."
+                );
+
+                // Check whether a folder having the path, 'solutionDirectory', exists on the file system.
+                // If it does not, then write an error message to the log file, and then terminate
+                // the execution of this method, returning the default return value.
+                if (!Does.FolderExist(solutionDirectory))
+                {
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        $"FileCopilotReferenceGenerator.ToSolutionRelative: *** ERROR *** The system could not locate the folder having the path, '{solutionDirectory}', on the file system.  Stopping..."
+                    );
+
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug, $"*** FileCopilotReferenceGenerator.ToSolutionRelative: Result = '{result}'"
+                    );
+
+                    // stop.
                     return result;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"FileCopilotReferenceGenerator.ToSolutionRelative: *** SUCCESS *** The folder with path, '{solutionDirectory}', was found on the file system.  Proceeding..."
+                );
 
                 var baseUri = new Uri(
                     AppendDirectorySeparator(solutionDirectory),
