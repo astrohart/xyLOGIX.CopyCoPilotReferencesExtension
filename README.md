@@ -2,7 +2,7 @@
 
 This Visual Studio extension simplifies referencing files in GitHub Copilot Chat by copying their relative paths to the clipboard, formatted for immediate use.
 
-![CopyCopilotReferencesExtension](images/CopyCopilotReferencesExtension.jpg)
+![image](images/CopyCoPilotReferencesExtension.jpg)
 
 ## How to Use
 
