@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using xyLOGIX.Core.Debug;
+using xyLOGIX.Core.Files;
 using Constants = EnvDTE.Constants;
 
 namespace CopyCoPilotReferencesExtension
@@ -446,7 +447,10 @@ namespace CopyCoPilotReferencesExtension
                     "CopyCoPilotReferencesCommand.GetSelectedProjectItems: *** SUCCESS *** The variable, 'dte2', has a valid object reference for its value.  Proceeding..."
                 );
 
-                DebugUtils.WriteLine(DebugLevel.Info, $"*** FYI *** Attempting to get selected items from Solution Explorer...");
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** FYI *** Attempting to get selected items from Solution Explorer..."
+                );
 
                 var selected = dte2.SelectedItems;
 
@@ -476,7 +480,10 @@ namespace CopyCoPilotReferencesExtension
                     "CopyCoPilotReferencesCommand.GetSelectedProjectItems: *** SUCCESS *** The variable, 'selected', has a valid object reference for its value.  Proceeding..."
                 );
 
-                DebugUtils.WriteLine(DebugLevel.Info, $"*** FYI *** Going over the selected items...");
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** FYI *** Going over the selected items..."
+                );
 
                 foreach (SelectedItem sel in selected)
                 {
@@ -536,18 +543,144 @@ namespace CopyCoPilotReferencesExtension
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var result = default(string);
+            var result = string.Empty;
+
             try
             {
-                if (dte2 == null) return result;
-                var sln = dte2.Solution;
-                if (sln == null) return result;
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSolutionDirectory: Checking whether the variable, 'dte2', has a null reference for a value..."
+                );
 
-                var slnPath = sln.FullName;
-                if (string.IsNullOrWhiteSpace(slnPath)) return result;
+                // Check to see if the variable, dte2, is null.  If it is, send an error
+                // to the log file and terminate the execution of this method, returning
+                // the default return value.
+                if (dte2 == null)
+                {
+                    // the variable dte2 is required to have a valid object reference.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.GetSolutionDirectory: *** ERROR ***  The variable, 'dte2', has a null reference.  Stopping..."
+                    );
+
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug,
+                        $"*** CopyCoPilotReferencesCommand.GetSolutionDirectory: Result = '{result}'"
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                // We can use the variable, dte2, because it's not set to a null reference.
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSolutionDirectory: *** SUCCESS *** The variable, 'dte2', has a valid object reference for its value.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSolutionDirectory: Checking whether the property, 'dte2.Solution', has a null reference for a value..."
+                );
+
+                // Check to see if the required property, 'dte2.Solution', has a null reference for a value. 
+                // If that is the case, then we will write an error message to the log file, and then
+                // terminate the execution of this method, while returning the default return value.
+                if (dte2.Solution == null)
+                {
+                    // The property, 'dte2.Solution', has a null reference for a value.  This is not desirable.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.GetSolutionDirectory: *** ERROR *** The property, 'dte2.Solution', has a null reference for a value.  Stopping..."
+                    );
+
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug,
+                        $"*** CopyCoPilotReferencesCommand.GetSolutionDirectory: Result = '{result}'"
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSolutionDirectory: *** SUCCESS *** The property, 'dte2.Solution', has a valid object reference for its value.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** FYI *** Attempting to get the fully-qualified pathname of the solution..."
+                );
+
+                var slnPath = dte2.Solution.FullName;
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "CopyCoPilotReferencesCommand.GetSolutionDirectory: Checking whether the variable, 'slnPath', has a null reference for a value, or is blank..."
+                );
+
+                // Check to see if the required variable, 'slnPath', is null or blank. If it is, 
+                // then send an  error to the log file and quit, returning the default value 
+                // of the result variable.
+                if (string.IsNullOrWhiteSpace(slnPath))
+                {
+                    // the variable slnPath is required.
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        "CopyCoPilotReferencesCommand.GetSolutionDirectory: *** ERROR *** The variable, 'slnPath', has a null reference or is blank.  Stopping..."
+                    );
+
+                    // log the result
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug,
+                        $"CopyCoPilotReferencesCommand.GetSolutionDirectory: Result = '{result}'"
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"CopyCoPilotReferencesCommand.GetSolutionDirectory: *** SUCCESS *** {slnPath.Length} B of data appear to be present in the variable, 'slnPath'.  Proceeding..."
+                );
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    "*** FYI *** Attempting to get the directory name from the solution path..."
+                );
 
                 var dir = Path.GetDirectoryName(slnPath);
-                if (string.IsNullOrWhiteSpace(dir)) return result;
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"CopyCoPilotReferencesCommand.GetSolutionDirectory *** INFO: Checking whether the folder with path, '{dir}', exists on the file system..."
+                );
+
+                // Check whether a folder having the path, 'dir', exists on the file system.
+                // If it does not, then write an error message to the log file, and then terminate
+                // the execution of this method, returning the default return value.
+                if (!Does.FolderExist(dir))
+                {
+                    DebugUtils.WriteLine(
+                        DebugLevel.Error,
+                        $"CopyCoPilotReferencesCommand.GetSolutionDirectory: *** ERROR *** The system could not locate the folder having the path, '{dir}', on the file system.  Stopping..."
+                    );
+
+                    DebugUtils.WriteLine(
+                        DebugLevel.Debug,
+                        $"*** CopyCoPilotReferencesCommand.GetSolutionDirectory: Result = '{result}'"
+                    );
+
+                    // stop.
+                    return result;
+                }
+
+                DebugUtils.WriteLine(
+                    DebugLevel.Info,
+                    $"CopyCoPilotReferencesCommand.GetSolutionDirectory: *** SUCCESS *** The folder with path, '{dir}', was found on the file system.  Proceeding..."
+                );
 
                 result = dir;
             }
@@ -555,8 +688,14 @@ namespace CopyCoPilotReferencesExtension
             {
                 // dump all the exception info to the log
                 DebugUtils.LogException(ex);
-                result = default;
+
+                result = string.Empty;
             }
+
+            DebugUtils.WriteLine(
+                DebugLevel.Debug,
+                $"CopyCoPilotReferencesCommand.GetSolutionDirectory: Result = '{result}'"
+            );
 
             return result;
         }

@@ -106,6 +106,10 @@
       <Project>{C445C052-26B6-4884-9A7B-25DC7ABC0DED}</Project>
       <Name>xyLOGIX.Core.Debug</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\xyLOGIX.Core.Files.VS2019\xyLOGIX.Core.Files\xyLOGIX.Core.Files.csproj">
+      <Project>{4BACCE79-0960-4445-975E-DB92F5A555A4}</Project>
+      <Name>xyLOGIX.Core.Files</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CCPRE.Generators.References.Actions\CCPRE.Generators.References.Actions.csproj">
       <Project>{b50f4922-b773-43b7-9134-a6dd32f3b521}</Project>
       <Name>CCPRE.Generators.References.Actions</Name>
