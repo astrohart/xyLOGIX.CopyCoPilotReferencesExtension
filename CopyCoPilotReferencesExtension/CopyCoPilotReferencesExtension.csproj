@@ -61,9 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS">
@@ -129,22 +127,6 @@
     <ProjectReference Include="..\CCPRE.Generators.References.Interfaces\CCPRE.Generators.References.Interfaces.csproj">
       <Project>{694f157e-a60d-490e-b48b-263dcd99a8dd}</Project>
       <Name>CCPRE.Generators.References.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CCPRE.Generators.References.Validators.Factories\CCPRE.Generators.References.Validators.Factories.csproj">
-      <Project>{cb32084b-fdcd-4fbc-a564-f3c6e0497684}</Project>
-      <Name>CCPRE.Generators.References.Validators.Factories</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CCPRE.Generators.References.Validators.Interfaces\CCPRE.Generators.References.Validators.Interfaces.csproj">
-      <Project>{2783c742-a336-449d-b914-4bcfe0742575}</Project>
-      <Name>CCPRE.Generators.References.Validators.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CCPRE.Generators.References.Validators\CCPRE.Generators.References.Validators.csproj">
-      <Project>{3ea27a18-3086-4e6b-aefd-d5f72b2c035f}</Project>
-      <Name>CCPRE.Generators.References.Validators</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CCPRE.Generators.References\CCPRE.Generators.References.csproj">
-      <Project>{7b163a47-917c-4990-b365-5dae9148eb93}</Project>
-      <Name>CCPRE.Generators.References</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
