@@ -1,12 +1,6 @@
 using CCPRE.Generators.References.Actions;
 using CCPRE.Generators.References.Constants;
 using CCPRE.Generators.References.Factories;
-using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using PostSharp.Patterns.Collections;
-using PostSharp.Patterns.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
