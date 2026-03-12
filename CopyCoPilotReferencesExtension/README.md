@@ -346,7 +346,7 @@ included in the result.
 
 Gets the currently selected [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem') entries from
 Solution Explorer.
-Falls back to the active document’s [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem').
+Falls back to the active document???s [ProjectItem](#T-EnvDTE-ProjectItem 'EnvDTE.ProjectItem').
 
 ##### Returns
 
@@ -634,7 +634,7 @@ already completed task if there is none. Do not return null from this method.
 | cancellationToken | [System.Threading.CancellationToken](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Threading.CancellationToken 'System.Threading.CancellationToken') | A cancellation token to monitor for
 initialization cancellation, which can occur when VS is shutting down. |
 | progress | [System.IProgress{Microsoft.VisualStudio.Shell.ServiceProgressData}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IProgress 'System.IProgress{Microsoft.VisualStudio.Shell.ServiceProgressData}') | (Required.) Reference to an instance of an object that implements the
-[IProgress\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IProgress`1 'System.IProgress`1') interface that iṡ provided with a reference
+[IProgress\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IProgress`1 'System.IProgress`1') interface that i??? provided with a reference
 to [ServiceProgressData](#T-Microsoft-VisualStudio-Shell-ServiceProgressData 'Microsoft.VisualStudio.Shell.ServiceProgressData') as its
 type parameter.
 
