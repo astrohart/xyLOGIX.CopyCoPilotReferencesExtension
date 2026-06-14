@@ -21,6 +21,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <SkipPostSharp>False</SkipPostSharp>
     <DocumentationFile>bin\x64\Debug\CCPRE.Generators.References.Validators.Interfaces.xml</DocumentationFile>
+    <NoWarn>1591, 1587, 1580, 1584</NoWarn>
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
@@ -35,6 +36,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <SkipPostSharp>True</SkipPostSharp>
     <DocumentationFile>bin\x64\Release\CCPRE.Generators.References.Validators.Interfaces.xml</DocumentationFile>
+    <NoWarn>1591, 1587, 1580, 1584</NoWarn>
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -49,6 +51,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <SkipPostSharp>False</SkipPostSharp>
     <DocumentationFile>bin\x86\Debug\CCPRE.Generators.References.Validators.Interfaces.xml</DocumentationFile>
+    <NoWarn>1591, 1587, 1580, 1584</NoWarn>
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
@@ -63,6 +66,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <SkipPostSharp>False</SkipPostSharp>
     <DocumentationFile>bin\x86\Release\CCPRE.Generators.References.Validators.Interfaces.xml</DocumentationFile>
+    <NoWarn>1591, 1587, 1580, 1584</NoWarn>
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
